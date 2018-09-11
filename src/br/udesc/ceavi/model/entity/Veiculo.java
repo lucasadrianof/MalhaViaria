@@ -1,4 +1,4 @@
-package br.udesc.ceavi.model;
+package br.udesc.ceavi.model.entity;
 
 /**
  * Class de Veículo
