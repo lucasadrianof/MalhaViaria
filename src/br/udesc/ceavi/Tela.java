@@ -1,6 +1,7 @@
 package br.udesc.ceavi;
 
-import br.udesc.ceavi.controller.ControllerImportacaoMalha;
+import br.udesc.ceavi.controller.ControllerMalhaViaria;
+import br.udesc.ceavi.model.entity.Coordenada;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,42 +15,45 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 
-public class Tela extends JPanel{
+public class Tela extends JPanel implements ObservadorTela {
     
     private int tempPos1 = 0;
     private int tempPos2 = 0;
     
     private ArrayList<Color> cores = new ArrayList<Color>();
     
-    private ControllerImportacaoMalha controllerImportacaoMalha = new ControllerImportacaoMalha();
+    private Graphics2D g;
     
+    private ControllerMalhaViaria controllerMalhaViaria;
+
     @Override
     public void paintComponent( Graphics a ){
         
         super.paintComponent(a);
         
-        Graphics2D g = (Graphics2D) a.create();
+        g = (Graphics2D) a.create();
         
-        inicializaCores();            
-            
+        inicializaCores();
+        
         try {
-            controllerImportacaoMalha.iniciaImportacao();
-            //setaDadosMapa(g);
+            controllerMalhaViaria = new ControllerMalhaViaria();
+            controllerMalhaViaria.adicionaObservador(this);
+            controllerMalhaViaria.iniciaMalhaViaria();
+            
         } catch (IOException ex) {
             Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-            //BufferedImage image = ImageIO.read(new File(caminho+"malhas/car.png"));
-            
-            //BufferedImage resized = resize(image, 30, 30);
-            
-            //g.drawImage(resized,1*25, 6*23, null);
-            //g.drawImage(resized,2*25, 6*23, null);
-            
-            //g.clearRect(0 * 25, 6 * 25, 7 * 25 , 6 * 25);
-            g.dispose();
-            
- 
+        
+        
+        //BufferedImage image = ImageIO.read(new File(caminho+"malhas/car.png"));
+
+        //BufferedImage resized = resize(image, 30, 30);
+
+        //g.drawImage(resized,1*25, 6*23, null);
+        //g.drawImage(resized,2*25, 6*23, null);
+
+        //g.clearRect(0 * 25, 6 * 25, 7 * 25 , 6 * 25);
+        
     }
     
     private static BufferedImage resize(BufferedImage img, int height, int width) {
@@ -96,13 +100,18 @@ public class Tela extends JPanel{
         Color cor = cores.remove(pos);
 
         return cor;
-    }
-    
-    private void setaDadosMapa(Graphics2D g) throws IOException {                
-                                    
-        //g.setColor(Color.BLACK);
-        //drawRect(g, 0, 0, tamanhoHorizontal, tamanhoVertical);
-        //drawLine(g, valor1, valor2, valor3, valor4);
+    } 
 
-    }    
+    @Override
+    public void criaVia(Coordenada inicio, Coordenada fim) {
+        //drawLine(g, inicio.getPosicaoX(), inicio.getPosicaoY(), fim.getPosicaoX(), fim.getPosicaoY());
+        //g.dispose();
+    }
+
+    @Override
+    public void criaMapa(int linhas, int colunas) {
+        //g.setColor(Color.BLACK);
+        //drawRect(g, 0, 0, colunas, linhas);
+        //g.dispose();
+    }
 }
