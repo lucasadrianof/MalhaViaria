@@ -16,6 +16,8 @@ import java.util.Random;
 public class ControllerImportacaoMalha {
     
     private MalhaViaria malhaViaria;
+    
+    private ControllerMalhaViaria controllerMalhaViaria;
         
     private final String caminho = "/Users/jessicapeixe/NetBeansProjects/MalhaViaria/";
     
@@ -60,6 +62,8 @@ public class ControllerImportacaoMalha {
             }
         } 
         catch (FileNotFoundException ex) {}
+        
+        controllerMalhaViaria = new ControllerMalhaViaria(malhaViaria);
     }
     
     private void criaMalhaViaria(int linhas, int colunas){
