@@ -13,6 +13,7 @@ public class MalhaViaria {
     private int colunas;
 
     private List<Via> vias = new ArrayList<>();
+    private List<Coordenada> cruzamentos = new ArrayList<>();
 
     public MalhaViaria(int linhas, int colunas) {
         this.linhas = linhas;
@@ -24,6 +25,9 @@ public class MalhaViaria {
      * @param via Via a ser adicionada
      */
     public void adicionaVia(Via via) {
+        for (Via viaExistente : vias) {
+
+        }
         vias.add(via);
     }
 
