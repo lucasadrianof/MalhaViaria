@@ -1,5 +1,7 @@
 package br.udesc.ceavi.model.entity;
 
+import br.udesc.ceavi.model.bo.ModelVia;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +27,24 @@ public class MalhaViaria {
      * @param via Via a ser adicionada
      */
     public void adicionaVia(Via via) {
-        for (Via viaExistente : vias) {
-
-        }
+        verificaCruzamentos(via);
         vias.add(via);
+    }
+
+    /**
+     * Verifica se a nova via possui algum cruzamento com os existentes e já os adiciona na lista
+     * @param via
+     */
+    private void verificaCruzamentos(Via via) {
+        ModelVia modelVia = new ModelVia();
+
+        for (Via viaExistente : vias) {
+            for (Coordenada cruzamento : modelVia.getCruzamentos(viaExistente, via)) {
+                if (!cruzamentos.contains(cruzamento)) {
+                    cruzamentos.add(cruzamento);
+                }
+            }
+        }
     }
 
     /**
