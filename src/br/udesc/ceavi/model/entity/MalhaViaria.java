@@ -38,4 +38,12 @@ public class MalhaViaria {
     public List<Via> getVias() {
         return vias;
     }
+    
+    public int getLinhas(){
+        return this.linhas;
+    }
+    
+    public int getColunas(){
+        return this.colunas;
+    }
 }
