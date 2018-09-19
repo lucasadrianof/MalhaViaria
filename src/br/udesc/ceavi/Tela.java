@@ -17,8 +17,7 @@ import javax.swing.JPanel;
 
 public class Tela extends JPanel implements ObservadorTela {
     
-    private int tempPos1 = 0;
-    private int tempPos2 = 0;
+    private int tempPos = 0;
     
     private ArrayList<Color> cores = new ArrayList<Color>();
     
@@ -65,24 +64,6 @@ public class Tela extends JPanel implements ObservadorTela {
         return resized;
     }
     
-    private void drawRect(Graphics2D g, int valor1, int valor2, int valor3, int valor4){
-        g.setStroke(new BasicStroke(2));
-        g.drawRect(valor1 * 25, valor2 * 25, valor3 * 25, valor4 * 25);
-                        
-    }
-    
-    private void drawLine(Graphics2D g, int valor1, int valor2, int valor3, int valor4){
-        if (tempPos1 != valor1 || tempPos2 != valor2) {
-            g.setColor(getRandomColor());
-        }
-       
-        g.setStroke(new BasicStroke(40));        
-        g.drawLine(valor1 * 25, valor2 * 25, valor3 * 25, valor4 * 25);
-        
-        tempPos1 = valor3;
-        tempPos2 = valor4;
-    }
-        
     private void inicializaCores(){
         cores.add(Color.yellow);
         cores.add(Color.red);
@@ -92,6 +73,8 @@ public class Tela extends JPanel implements ObservadorTela {
         cores.add(Color.magenta);
         cores.add(Color.cyan);
         cores.add(Color.gray);
+        cores.add(Color.lightGray);
+        cores.add(Color.darkGray);
     }
     
     private Color getRandomColor(){
@@ -99,19 +82,28 @@ public class Tela extends JPanel implements ObservadorTela {
         int pos = r.nextInt(cores.size());
         Color cor = cores.remove(pos);
 
+        if (cores.size() == 0) {
+            inicializaCores();
+        }
         return cor;
     } 
 
     @Override
     public void criaVia(Coordenada inicio, Coordenada fim) {
-        //drawLine(g, inicio.getPosicaoX(), inicio.getPosicaoY(), fim.getPosicaoX(), fim.getPosicaoY());
-        //g.dispose();
+        g.setColor(getRandomColor());
+        g.setStroke(new BasicStroke(30)); 
+        g.drawLine(inicio.getPosicaoX() * 25, inicio.getPosicaoY() * 25, fim.getPosicaoX() * 25, fim.getPosicaoY() * 25);
     }
 
     @Override
     public void criaMapa(int linhas, int colunas) {
-        //g.setColor(Color.BLACK);
-        //drawRect(g, 0, 0, colunas, linhas);
-        //g.dispose();
+        g.setColor(Color.BLACK);
+        g.setStroke(new BasicStroke(2));
+        g.drawRect(0, 0, colunas * 25, linhas * 25);
+    }
+
+    @Override
+    public void finalizaMontagemTela() {
+        g.dispose();
     }
 }

@@ -2,7 +2,6 @@ package br.udesc.ceavi.controller;
 
 import br.udesc.ceavi.ObservadorTela;
 import br.udesc.ceavi.model.entity.MalhaViaria;
-import br.udesc.ceavi.model.entity.Via;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -27,6 +26,7 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria {
         this.malhaViaria = this.controllerImportacaoMalha.getMalhaViaria();
         notificaObservadoresMontarMapa();
         notificaObservadoresMontarVias();
+        notificaObservadoresFinalizar();
     }
 
     @Override
@@ -51,6 +51,12 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria {
     private void notificaObservadoresMontarMapa() {
         observadores.forEach((observador) -> {
             observador.criaMapa(malhaViaria.getLinhas(),malhaViaria.getColunas());
+        });
+    }
+    
+    private void notificaObservadoresFinalizar(){
+        observadores.forEach((observador) -> {
+            observador.finalizaMontagemTela();
         });
     }
 }

@@ -12,4 +12,5 @@ public interface ObservadorTela {
 
     public void criaMapa(int linhas, int colunas);
     
+    public void finalizaMontagemTela();
 }

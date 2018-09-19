@@ -52,7 +52,7 @@ public class ControllerImportacaoMalha {
                             Integer.parseInt(dados[0]),
                             Integer.parseInt(dados[1]),
                             Integer.parseInt(dados[2]),
-                            Integer.parseInt(dados[0])
+                            Integer.parseInt(dados[3])
                         );
                 }
                 
