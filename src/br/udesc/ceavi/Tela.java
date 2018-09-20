@@ -90,7 +90,7 @@ public class Tela extends JPanel implements ObservadorTela {
 
     @Override
     public void criaVia(Coordenada inicio, Coordenada fim) {
-        g.setColor(getRandomColor());
+        g.setColor(Color.gray);
         g.setStroke(new BasicStroke(30)); 
         g.drawLine(inicio.getPosicaoX() * 25, inicio.getPosicaoY() * 25, fim.getPosicaoX() * 25, fim.getPosicaoY() * 25);
     }

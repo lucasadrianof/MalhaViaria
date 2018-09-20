@@ -39,7 +39,8 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria {
         observadores.remove(observador);
     }
     
-    private void notificaObservadoresMontarVias(){
+    @Override
+    public void notificaObservadoresMontarVias(){
         malhaViaria.getVias().forEach((via) -> {
             observadores.forEach((observador) -> {
                 observador.criaVia(via.getPontoInicial(), via.getPontoFinal());
@@ -48,13 +49,15 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria {
         
     }
 
-    private void notificaObservadoresMontarMapa() {
+    @Override
+    public void notificaObservadoresMontarMapa() {
         observadores.forEach((observador) -> {
             observador.criaMapa(malhaViaria.getLinhas(),malhaViaria.getColunas());
         });
     }
     
-    private void notificaObservadoresFinalizar(){
+    @Override
+    public void notificaObservadoresFinalizar(){
         observadores.forEach((observador) -> {
             observador.finalizaMontagemTela();
         });
