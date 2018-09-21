@@ -20,7 +20,8 @@ public class ThreadInsereVeiculo extends Thread {
 
     @Override
     public void run() {
-        Via[] vias = (Via[]) malhaViaria.getVias().toArray();
+        Via[] vias = new Via[malhaViaria.getVias().size()];
+        vias = malhaViaria.getVias().toArray(vias);
 
         if (vias.length > 0) {
             Random r  = new Random();
