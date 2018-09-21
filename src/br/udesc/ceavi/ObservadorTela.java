@@ -15,7 +15,7 @@ public interface ObservadorTela {
     
     public void finalizaMontagemTela();
     
-    public void adicionaCarroMalha(Coordenada coordenada) throws IOException;
+    public void adicionaCarroMalha(Coordenada coordenada);
     
-    public void movimentaCarro(Coordenada coordenadaAnterior, Coordenada coordenadaAtual) throws IOException;
+    public void movimentaCarro(Coordenada coordenadaAnterior, Coordenada coordenadaAtual);
 }

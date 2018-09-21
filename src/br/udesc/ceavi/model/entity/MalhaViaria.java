@@ -15,7 +15,6 @@ public class MalhaViaria {
     private int colunas;
 
     private List<Via> vias = new ArrayList<>();
-    private List<Veiculo> veiculos = new ArrayList<>();
 
     public MalhaViaria(int linhas, int colunas) {
         this.linhas = linhas;

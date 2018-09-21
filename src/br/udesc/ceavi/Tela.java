@@ -81,8 +81,13 @@ public class Tela extends JPanel implements ObservadorTela {
         return cor;
     } 
 
-    private BufferedImage getCarro() throws IOException{
-        BufferedImage image = ImageIO.read(new File(caminho+"malhas/car.png"));
+    private BufferedImage getCarro() {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(caminho+"malhas/car.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return resize(image, 30, 30);
     }
     
@@ -106,12 +111,12 @@ public class Tela extends JPanel implements ObservadorTela {
     }
     
     @Override
-    public void adicionaCarroMalha(Coordenada coordenada) throws IOException{
+    public void adicionaCarroMalha(Coordenada coordenada) {
         g.drawImage(getCarro(),coordenada.getPosicaoX()*25, coordenada.getPosicaoY()*23, null);
     }
     
     @Override
-    public void movimentaCarro(Coordenada coordenadaAnterior, Coordenada coordenadaAtual) throws IOException{
+    public void movimentaCarro(Coordenada coordenadaAnterior, Coordenada coordenadaAtual) {
         g.clearRect(coordenadaAnterior.getPosicaoX() * 25, coordenadaAnterior.getPosicaoY() * 25, 7 * 25 , 6 * 25);
         g.drawImage(getCarro(),coordenadaAtual.getPosicaoX()*25, coordenadaAtual.getPosicaoY()*23, null);
     }

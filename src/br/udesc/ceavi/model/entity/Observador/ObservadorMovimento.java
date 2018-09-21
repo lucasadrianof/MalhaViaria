@@ -1,5 +1,6 @@
-package br.udesc.ceavi.model.entity.ObservadorVeiculo;
+package br.udesc.ceavi.model.entity.Observador;
 
+import br.udesc.ceavi.model.entity.Coordenada;
 import br.udesc.ceavi.model.entity.Veiculo;
 
 /**
@@ -11,6 +12,8 @@ public interface ObservadorMovimento {
     /**
      * Indica que determinado veículo se movimentou
      * @param veiculo Veículo movimentado
+     * @param coordenadaAnterior Coordenada anterior a movimentação
      */
-    public void veiculoMovimentado(Veiculo veiculo);
+    public void veiculoMovimentado(Veiculo veiculo, Coordenada coordenadaAnterior);
+
 }

@@ -26,7 +26,8 @@ public class ThreadInsereVeiculo extends Thread {
             Random r  = new Random();
             int index = r.nextInt(vias.length);
 
-            Veiculo veiculo  = new Veiculo(vias[index].getPontoInicial(), new EstrategiaSemaforo());
+            Veiculo veiculo  = new Veiculo(vias[index], new EstrategiaSemaforo());
+            vias[index].adicionaVeiculo(veiculo);
             Thread thVeiculo = new Thread(veiculo);
             thVeiculo.start();
         }

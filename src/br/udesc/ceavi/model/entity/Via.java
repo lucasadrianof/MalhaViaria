@@ -1,5 +1,10 @@
 package br.udesc.ceavi.model.entity;
 
+import br.udesc.ceavi.model.entity.Observador.ObservadorVia;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Via da Malha
  * @author lucas.adriano
@@ -9,6 +14,9 @@ public class Via {
     private Coordenada pontoInicial;
     private Coordenada pontoFinal;
     private DirecaoVia direcao;
+
+    private List<Veiculo> veiculos = new ArrayList<>();
+    private List<ObservadorVia> observadores = new ArrayList<>();
 
     public Via(Coordenada pontoInicial, Coordenada pontoFinal) {
         this.pontoInicial = pontoInicial;
@@ -38,6 +46,23 @@ public class Via {
 
     public void setDirecao(DirecaoVia direcao) {
         this.direcao = direcao;
+    }
+
+    /**
+     * Adiciona um observador à via
+     * @param observadorVia
+     */
+    public void adicionaObservador(ObservadorVia observadorVia) {
+        observadores.add(observadorVia);
+    }
+
+    /**
+     * Adiciona um veículo a via
+     * @param veiculo
+     */
+    public void adicionaVeiculo(Veiculo veiculo) {
+        veiculos.add(veiculo);
+        observadores.forEach((observador) -> observador.veiculoAdicionado(this, veiculo));
     }
 
     /**
