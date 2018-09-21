@@ -113,6 +113,7 @@ public class Tela extends JPanel implements ObservadorTela {
     @Override
     public void adicionaCarroMalha(Coordenada coordenada) {
         g.drawImage(getCarro(),coordenada.getPosicaoX()*25, coordenada.getPosicaoY()*23, null);
+        System.out.println("a");
     }
     
     @Override
