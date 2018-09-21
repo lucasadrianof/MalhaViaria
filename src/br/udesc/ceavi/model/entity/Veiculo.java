@@ -12,15 +12,21 @@ import java.util.ArrayList;
  */
 public class Veiculo implements Runnable {
 
+    private Coordenada coordenada;
     private EstrategiaExclusividade estrategia;
     private List<ObservadorMovimento> observadores = new ArrayList<>();
 
-    public Veiculo(EstrategiaExclusividade estrategia) {
+    public Veiculo(Coordenada coordenada, EstrategiaExclusividade estrategia) {
+        this.coordenada = coordenada;
         this.estrategia = estrategia;
     }
 
     public EstrategiaExclusividade getEstrategia() {
         return estrategia;
+    }
+
+    public Coordenada getCoordenada() {
+        return coordenada;
     }
 
     /**

@@ -15,7 +15,7 @@ public class MalhaViaria {
     private int colunas;
 
     private List<Via> vias = new ArrayList<>();
-    private List<Coordenada> cruzamentos = new ArrayList<>();
+    private List<Veiculo> veiculos = new ArrayList<>();
 
     public MalhaViaria(int linhas, int colunas) {
         this.linhas = linhas;
@@ -27,7 +27,7 @@ public class MalhaViaria {
      * @param via Via a ser adicionada
      */
     public void adicionaVia(Via via) {
-        verificaCruzamentos(via);
+        //verificaCruzamentos(via);
         vias.add(via);
     }
 
@@ -39,11 +39,7 @@ public class MalhaViaria {
         ModelVia modelVia = new ModelVia();
 
         for (Via viaExistente : vias) {
-            for (Coordenada cruzamento : modelVia.getCruzamentos(viaExistente, via)) {
-                if (!cruzamentos.contains(cruzamento)) {
-                    cruzamentos.add(cruzamento);
-                }
-            }
+
         }
     }
 
@@ -54,7 +50,31 @@ public class MalhaViaria {
     public List<Via> getVias() {
         return vias;
     }
-    
+
+    /**
+     * Retorna as vias disponíveis para entrada
+     * @return As vias de entrada disponíveis
+     */
+    public List<Via> getViasEntrada() {
+        List<Via> vias = new ArrayList<>();
+
+        for (Via via : this.vias) {
+            Coordenada entrada = via.getPontoInicial();
+
+            if (entrada.getPosicaoX() == 0 || entrada.getPosicaoX() == (linhas - 1) ||
+                entrada.getPosicaoY() == 0 || entrada.getPosicaoY() == (colunas - 1))
+            {
+                vias.add(via);
+            }
+        }
+
+        return vias;
+    }
+
+    /**
+     *
+     * @return
+     */
     public int getLinhas(){
         return this.linhas;
     }
