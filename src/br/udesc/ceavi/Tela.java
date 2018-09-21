@@ -8,11 +8,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Tela extends JPanel implements ObservadorTela {
@@ -24,6 +26,8 @@ public class Tela extends JPanel implements ObservadorTela {
     private Graphics2D g;
     
     private ControllerMalhaViaria controllerMalhaViaria;
+    
+    private final String caminho = "/Users/jessicapeixe/NetBeansProjects/MalhaViaria/";
 
     @Override
     public void paintComponent( Graphics a ){
@@ -42,17 +46,6 @@ public class Tela extends JPanel implements ObservadorTela {
         } catch (IOException ex) {
             Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        //BufferedImage image = ImageIO.read(new File(caminho+"malhas/car.png"));
-
-        //BufferedImage resized = resize(image, 30, 30);
-
-        //g.drawImage(resized,1*25, 6*23, null);
-        //g.drawImage(resized,2*25, 6*23, null);
-
-        //g.clearRect(0 * 25, 6 * 25, 7 * 25 , 6 * 25);
-        
     }
     
     private static BufferedImage resize(BufferedImage img, int height, int width) {
@@ -88,6 +81,11 @@ public class Tela extends JPanel implements ObservadorTela {
         return cor;
     } 
 
+    private BufferedImage getCarro() throws IOException{
+        BufferedImage image = ImageIO.read(new File(caminho+"malhas/car.png"));
+        return resize(image, 30, 30);
+    }
+    
     @Override
     public void criaVia(Coordenada inicio, Coordenada fim) {
         g.setColor(Color.gray);
@@ -105,5 +103,16 @@ public class Tela extends JPanel implements ObservadorTela {
     @Override
     public void finalizaMontagemTela() {
         g.dispose();
+    }
+    
+    @Override
+    public void adicionaCarroMalha(Coordenada coordenada) throws IOException{
+        g.drawImage(getCarro(),coordenada.getPosicaoX()*25, coordenada.getPosicaoY()*23, null);
+    }
+    
+    @Override
+    public void movimentaCarro(Coordenada coordenadaAnterior, Coordenada coordenadaAtual) throws IOException{
+        g.clearRect(coordenadaAnterior.getPosicaoX() * 25, coordenadaAnterior.getPosicaoY() * 25, 7 * 25 , 6 * 25);
+        g.drawImage(getCarro(),coordenadaAtual.getPosicaoX()*25, coordenadaAtual.getPosicaoY()*23, null);
     }
 }

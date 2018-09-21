@@ -1,6 +1,7 @@
 package br.udesc.ceavi;
 
 import br.udesc.ceavi.model.entity.Coordenada;
+import java.io.IOException;
 
 /**
  *
@@ -13,4 +14,8 @@ public interface ObservadorTela {
     public void criaMapa(int linhas, int colunas);
     
     public void finalizaMontagemTela();
+    
+    public void adicionaCarroMalha(Coordenada coordenada) throws IOException;
+    
+    public void movimentaCarro(Coordenada coordenadaAnterior, Coordenada coordenadaAtual) throws IOException;
 }
