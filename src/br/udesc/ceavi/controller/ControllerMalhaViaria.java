@@ -5,6 +5,7 @@ import br.udesc.ceavi.model.entity.MalhaViaria;
 import br.udesc.ceavi.model.entity.Observador.ObservadorVia;
 import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
+import br.udesc.ceavi.thread.ThreadInsereVeiculo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,9 +29,14 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
     public void iniciaMalhaViaria() throws IOException {
         this.controllerImportacaoMalha.iniciaImportacao();
         this.malhaViaria = this.controllerImportacaoMalha.getMalhaViaria();
+
         notificaObservadoresMontarMapa();
         notificaObservadoresMontarVias();
         notificaObservadoresFinalizar();
+
+        ThreadInsereVeiculo threadInsereVeiculo = new ThreadInsereVeiculo();
+        threadInsereVeiculo.setMalhaViaria(this.malhaViaria);
+        threadInsereVeiculo.start();
     }
 
     @Override

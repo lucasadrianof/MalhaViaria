@@ -33,7 +33,7 @@ public class ThreadInsereVeiculo extends Thread {
         }
 
         try {
-            sleep(1000);
+            sleep(3000);
         }
         catch (InterruptedException e) {
             e.printStackTrace();
