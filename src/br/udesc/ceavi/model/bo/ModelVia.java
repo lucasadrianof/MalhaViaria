@@ -12,18 +12,9 @@ import java.util.List;
  */
 public class ModelVia {
 
-    public List<Coordenada> getCruzamentos(Via viaA, Via viaB) {
-        List<Coordenada> cruzamentos     = new ArrayList<>();
-        List<Coordenada> coordenadasViaA = getCoordenadas(viaA);
-        List<Coordenada> coordenadasViaB = getCoordenadas(viaB);
+    public Coordenada getCruzamentos(Via viaA, Via viaB) {
 
-        for (Coordenada coordenada : coordenadasViaA) {
-            if (coordenadasViaB.contains(coordenada)) {
-                cruzamentos.add(coordenada);
-            }
-        }
-
-        return cruzamentos;
+        return null;
     }
 
     /**
