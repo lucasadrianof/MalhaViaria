@@ -17,7 +17,7 @@ public class ControllerImportacaoMalha {
     
     private MalhaViaria malhaViaria;
             
-    private final String caminho = "/Users/jessicapeixe/NetBeansProjects/MalhaViaria/";
+    private final String caminho = System.getProperty("user.dir") + "/";
     
     public void iniciaImportacao() throws IOException {
         

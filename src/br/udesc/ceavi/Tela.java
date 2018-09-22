@@ -27,7 +27,7 @@ public class Tela extends JPanel implements ObservadorTela {
     
     private ControllerMalhaViaria controllerMalhaViaria;
     
-    private final String caminho = "/Users/jessicapeixe/NetBeansProjects/MalhaViaria/";
+    private final String caminho =  System.getProperty("user.dir") + "/";
 
     @Override
     public void paintComponent( Graphics a ){
@@ -84,7 +84,7 @@ public class Tela extends JPanel implements ObservadorTela {
     private BufferedImage getCarro() {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File(caminho+"malhas/car.png"));
+            image = ImageIO.read(new File(caminho + "malhas/car.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
