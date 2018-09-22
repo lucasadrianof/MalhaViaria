@@ -20,24 +20,26 @@ public class ThreadInsereVeiculo extends Thread {
 
     @Override
     public void run() {
-        Via[] vias = new Via[malhaViaria.getVias().size()];
-        vias = malhaViaria.getVias().toArray(vias);
+        while (true) {            
+            Via[] vias = new Via[malhaViaria.getViasEntrada().size()];
+            vias = malhaViaria.getViasEntrada().toArray(vias);
 
-        if (vias.length > 0) {
-            Random r  = new Random();
-            int index = r.nextInt(vias.length);
+            if (vias.length > 0) {
+                Random r  = new Random();
+                int index = r.nextInt(vias.length);
 
-            Veiculo veiculo  = new Veiculo(vias[index], new EstrategiaSemaforo());
-            vias[index].adicionaVeiculo(veiculo);
-            Thread thVeiculo = new Thread(veiculo);
-            thVeiculo.start();
-        }
+                Veiculo veiculo  = new Veiculo(vias[index], new EstrategiaSemaforo());
+                vias[index].adicionaVeiculo(veiculo);
+                Thread thVeiculo = new Thread(veiculo);
+                thVeiculo.start();
+            }
 
-        try {
-            sleep(3000);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
+            try {
+                sleep(3000);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
