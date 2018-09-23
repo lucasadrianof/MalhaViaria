@@ -38,6 +38,7 @@ public class Tela extends JPanel implements ObservadorTela {
             controllerMalhaViaria = new ControllerMalhaViaria();
             controllerMalhaViaria.adicionaObservador(this);
             controllerMalhaViaria.iniciaMalhaViaria();
+
         }
         catch (IOException ex) {
             Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
