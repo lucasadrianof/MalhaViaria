@@ -5,7 +5,7 @@ import br.udesc.ceavi.model.entity.MalhaViaria;
 import br.udesc.ceavi.model.entity.Via;
 
 /**
-     *
+ *
  * @author jessicapeixe
  */
 public interface ObservadorTela {

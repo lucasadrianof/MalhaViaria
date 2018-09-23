@@ -16,6 +16,7 @@ public class Veiculo implements Runnable {
     private Coordenada coordenada;
     private EstrategiaExclusividade estrategia;
     private List<ObservadorMovimentoVeiculo> observadores = new ArrayList<>();
+    private boolean emMovimento = true;
 
     public Veiculo(Via via, EstrategiaExclusividade estrategia) {
         this.setVia(via);
@@ -43,6 +44,14 @@ public class Veiculo implements Runnable {
             return coordenada;
     }
 
+    public boolean isEmMovimento() {
+        return emMovimento;
+    }
+
+    public void setEmMovimento(boolean emMovimento) {
+        this.emMovimento = emMovimento;
+    }
+
     public void setCoordenada(Coordenada coordenada) {
         if (this.coordenada != null) {
             this.coordenada.setVeiculo(null);
@@ -61,7 +70,7 @@ public class Veiculo implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (isEmMovimento()) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

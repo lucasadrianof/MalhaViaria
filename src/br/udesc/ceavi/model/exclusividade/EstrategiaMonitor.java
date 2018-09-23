@@ -30,17 +30,22 @@ public class EstrategiaMonitor implements EstrategiaExclusividade {
         Coordenada coordenada = movimentoVeiculo.getNext(veiculo.getCoordenada(), via);
 
         //Caso o veículo tenha chegado ao final da via e esta via não seja uma de saída
-        if (coordenada == null && !malhaViaria.getViasSaida().contains(via)) {
-            List<Via> vias   = movimentoVeiculo.getProximasVias();
-            Random random    = new Random();
-            int proximaVia   = random.nextInt(vias.size());
-            Via viaNova      = vias.get(proximaVia);
-            Coordenada coor  = viaNova.getPontoInicial();
-            Coordenada coor2 = movimentoVeiculo.getNext(coor, viaNova);
+        if (coordenada == null) {
+            if (!malhaViaria.getViasSaida().contains(via)) {
+                List<Via> vias   = movimentoVeiculo.getProximasVias();
+                Random random    = new Random();
+                int proximaVia   = random.nextInt(vias.size());
+                Via viaNova      = vias.get(proximaVia);
+                Coordenada coor  = viaNova.getPontoInicial();
+                Coordenada coor2 = movimentoVeiculo.getNext(coor, viaNova);
 
-            //Tenta adquirir o lock do cruzamento somente se o cruzamento e a próxima via está liberada
-            if (coor.isLiberada() && coor2.isLiberada()) {
-                setViaVeiculo(viaNova, veiculo);
+                //Tenta adquirir o lock do cruzamento somente se o cruzamento e a próxima via está liberada
+                if (coor.isLiberada() && coor2.isLiberada()) {
+                    setViaVeiculo(viaNova, veiculo);
+                }
+            }
+            else {
+                veiculo.setEmMovimento(false);
             }
         }
         else if (coordenada.isLiberada()) {
