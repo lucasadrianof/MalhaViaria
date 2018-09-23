@@ -19,36 +19,54 @@ public class Opcoes extends JPanel{
     private JButton botaoEncerrar;
     private JLabel txtEstrategia;
     private JComboBox campoEstrategia;
+    private JComboBox campoMapa;
+    private JLabel txtMapa;
     
-    private final TipoEstrategiaExclusividade[] opcoes = {TipoEstrategiaExclusividade.SEMAFORO, 
-                                                          TipoEstrategiaExclusividade.MONITOR};
+    private final TipoEstrategiaExclusividade[] opcoesEstrategia = {TipoEstrategiaExclusividade.SEMAFORO, 
+                                                                    TipoEstrategiaExclusividade.MONITOR};
+    
+    private final String[] opcoesMapa = {"1","2","3","4"};
+
+    public JTextField getCampoQtdeVeiculos() {
+        return campoQtdeVeiculos;
+    }
+
+    public JButton getBotaoIniciar() {
+        return botaoIniciar;
+    }
+
+    public JButton getBotaoEncerrar() {
+        return botaoEncerrar;
+    }
+
+    public JComboBox getCampoEstrategia() {
+        return campoEstrategia;
+    }
+
+    public JComboBox getCampoMapa() {
+        return campoMapa;
+    }
     
     public Opcoes(){
         adcionaCampos();
     }
     
     private void adcionaCampos(){
-        txtQtdeVeiculos = new JLabel("Quantidade Veículos: ");
-            
-        campoQtdeVeiculos = new JTextField(3);
-        campoQtdeVeiculos.setName("campoQtdeVeiculos");
-        campoQtdeVeiculos.setText("10");
-
-        botaoIniciar = new JButton("Iniciar");
-        botaoIniciar.setName("btnIniciar");
-
-        botaoEncerrar = new JButton("Encerrar");
-        botaoEncerrar.setName("btnEncerrar");
-
-        txtEstrategia = new JLabel("Estratégia: ");
-
-        campoEstrategia = new JComboBox(opcoes);
-        campoEstrategia.setName("campoEstrategia");
+        txtQtdeVeiculos   = new JLabel("Quantidade Veículos: ");
+        txtEstrategia     = new JLabel("Estratégia: ");
+        txtMapa           = new JLabel("Mapa: ");
+        campoQtdeVeiculos = new JTextField("10",3);
+        campoEstrategia   = new JComboBox(opcoesEstrategia);
+        campoMapa         = new JComboBox(opcoesMapa);
+        botaoIniciar      = new JButton("Iniciar");
+        botaoEncerrar     = new JButton("Encerrar");
         
         add(txtQtdeVeiculos);
         add(campoQtdeVeiculos);
         add(txtEstrategia);
         add(campoEstrategia);
+        add(txtMapa);
+        add(campoMapa);
         add(botaoIniciar);
         add(botaoEncerrar);
     }
