@@ -63,7 +63,7 @@ public class Tela extends JPanel implements ObservadorTela {
         return resized;
     }
     
-    private BufferedImage getCarro() {
+    private BufferedImage getCarro(Veiculo veiculo) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(caminho + "malhas/car_left.png"));
@@ -114,9 +114,13 @@ public class Tela extends JPanel implements ObservadorTela {
 
     private synchronized void desenhaCarros() {
         synchronized (this.carros) {
-            carros.forEach((carro) -> {
-                g.drawImage(getCarro(),carro.getCoordenada().getPosicaoX() * 25, 
-                                       carro.getCoordenada().getPosicaoY() * 23, null);
+            carros.forEach((veiculo) -> {
+                g.drawImage(
+                    getCarro(veiculo),
+                    veiculo.getCoordenada().getPosicaoX() * 25, 
+                    veiculo.getCoordenada().getPosicaoY() * 23, 
+                    null
+                );
             });
         }
     }
