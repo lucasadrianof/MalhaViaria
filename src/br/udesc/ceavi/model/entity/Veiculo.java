@@ -18,6 +18,8 @@ public class Veiculo implements Runnable {
 
     public Veiculo(Coordenada coordenada, EstrategiaExclusividade estrategia) {
         this.coordenada = coordenada;
+        this.coordenada.setVeiculo(this);
+
         this.estrategia = estrategia;
     }
 

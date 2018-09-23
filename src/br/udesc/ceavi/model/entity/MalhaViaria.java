@@ -93,6 +93,14 @@ public class MalhaViaria {
     }
 
     /**
+     * Retorna as vias de saída
+     * @return As vias de saída da malha
+     */
+    public List<Via> getViasSaida() {
+        return viasSaida;
+    }
+
+    /**
      *
      * @return
      */

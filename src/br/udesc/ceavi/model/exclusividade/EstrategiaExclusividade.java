@@ -8,4 +8,5 @@ package br.udesc.ceavi.model.exclusividade;
  */
 public interface EstrategiaExclusividade {
 
+
 }
