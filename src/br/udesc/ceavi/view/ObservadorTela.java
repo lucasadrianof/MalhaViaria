@@ -1,7 +1,7 @@
 package br.udesc.ceavi.view;
 
-import br.udesc.ceavi.model.entity.Coordenada;
 import br.udesc.ceavi.model.entity.MalhaViaria;
+import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
 
 /**
@@ -14,7 +14,7 @@ public interface ObservadorTela {
 
     public void criaMapa(MalhaViaria malhaViaria);
     
-    public void adicionaCarroMalha(Coordenada coordenada);
+    public void adicionaCarroMalha(Veiculo veiculo);
     
-    public void movimentaCarro(Coordenada coordenadaAnterior, Coordenada coordenadaAtual);
+    public void movimentaCarro(Veiculo veiculo);
 }

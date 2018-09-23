@@ -59,7 +59,6 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
                 observador.criaVia(via);
             });
         });
-        
     }
 
     @Override
@@ -71,14 +70,14 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
     public void veiculoAdicionado(Via via, Veiculo veiculo) {
         observadores.forEach((observador) -> {
             veiculo.adicionaObservador(this);
-            observador.adicionaCarroMalha(via.getPontoInicial());
+            observador.adicionaCarroMalha(veiculo);
         });
     }
 
     @Override
     public void veiculoMovimentado(Veiculo veiculo, Coordenada coordenadaAnterior) {
         observadores.forEach((observador) -> {
-            observador.movimentaCarro(coordenadaAnterior, veiculo.getCoordenada());
+            observador.movimentaCarro(veiculo);
         });
     }
 }
