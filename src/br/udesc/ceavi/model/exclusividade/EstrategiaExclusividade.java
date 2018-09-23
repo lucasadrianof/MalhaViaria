@@ -1,5 +1,8 @@
 package br.udesc.ceavi.model.exclusividade;
 
+import br.udesc.ceavi.model.entity.MalhaViaria;
+import br.udesc.ceavi.model.entity.Veiculo;
+
 /**
  * Estratégia de Exclusividade:
  *
@@ -8,5 +11,16 @@ package br.udesc.ceavi.model.exclusividade;
  */
 public interface EstrategiaExclusividade {
 
+    /**
+     * Define a malha viária sobre a qual o veículo irá se movimentar
+     * @param malhaViaria
+     */
+    public void setMalhaViaria(MalhaViaria malhaViaria);
+
+    /**
+     * Realiza a movimentação do veículo
+     * @param veiculo
+     */
+    public void movimentaVeiculo(Veiculo veiculo);
 
 }

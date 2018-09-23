@@ -66,6 +66,15 @@ public class Via {
     }
 
     /**
+     * Remove um veículo da via
+     * @param veiculo
+     * @return True indicando caso o veículo estava na via e foi removido, false caso contrário
+     */
+    public boolean removeVeiculo(Veiculo veiculo) {
+        return veiculos.remove(veiculo);
+    }
+
+    /**
      * Descobre a direção da via baseado em suas coordenadas
      * @return A direção da via
      */

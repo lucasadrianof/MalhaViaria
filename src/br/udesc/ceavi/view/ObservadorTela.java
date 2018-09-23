@@ -1,4 +1,4 @@
-package br.udesc.ceavi;
+package br.udesc.ceavi.view;
 
 import br.udesc.ceavi.model.entity.Coordenada;
 import br.udesc.ceavi.model.entity.MalhaViaria;

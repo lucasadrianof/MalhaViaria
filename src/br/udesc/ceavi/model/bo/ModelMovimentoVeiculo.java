@@ -18,8 +18,8 @@ public class ModelMovimentoVeiculo {
     private Veiculo veiculo;
     private MalhaViaria malhaViaria;
 
-    public ModelMovimentoVeiculo(Via via, Veiculo veiculo, MalhaViaria malhaViaria) {
-        this.via = via;
+    public ModelMovimentoVeiculo(Veiculo veiculo, MalhaViaria malhaViaria) {
+        this.via = veiculo.getVia();
         this.veiculo = veiculo;
         this.malhaViaria = malhaViaria;
     }
@@ -59,30 +59,30 @@ public class ModelMovimentoVeiculo {
 
         switch (via.getDirecao()) {
             case ESQUERDA_DIREITA:
-                if (coordenada.getPosicaoY() < via.getPontoFinal().getPosicaoY()) {
-                    x = coordenada.getPosicaoX();
-                    y = coordenada.getPosicaoY() + 1;
-                }
-                break;
-
-            case DIREITA_ESQUERDA:
-                if (coordenada.getPosicaoY() > via.getPontoFinal().getPosicaoY()) {
-                    x = coordenada.getPosicaoX();
-                    y = coordenada.getPosicaoY() - 1;
-                }
-                break;
-
-            case CIMA_BAIXO:
                 if (coordenada.getPosicaoX() < via.getPontoFinal().getPosicaoX()) {
                     x = coordenada.getPosicaoX() + 1;
                     y = coordenada.getPosicaoY();
                 }
                 break;
 
-            default:
+            case DIREITA_ESQUERDA:
                 if (coordenada.getPosicaoX() > via.getPontoFinal().getPosicaoX()) {
                     x = coordenada.getPosicaoX() - 1;
                     y = coordenada.getPosicaoY();
+                }
+                break;
+
+            case CIMA_BAIXO:
+                if (coordenada.getPosicaoY() < via.getPontoFinal().getPosicaoY()) {
+                    x = coordenada.getPosicaoX();
+                    y = coordenada.getPosicaoY() + 1;
+                }
+                break;
+
+            default:
+                if (coordenada.getPosicaoY() > via.getPontoFinal().getPosicaoY()) {
+                    x = coordenada.getPosicaoX();
+                    y = coordenada.getPosicaoY() - 1;
                 }
                 break;
         }

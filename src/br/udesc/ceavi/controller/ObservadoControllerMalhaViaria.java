@@ -1,6 +1,6 @@
 package br.udesc.ceavi.controller;
 
-import br.udesc.ceavi.ObservadorTela;
+import br.udesc.ceavi.view.ObservadorTela;
 
 /**
  *

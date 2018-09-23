@@ -1,5 +1,6 @@
 package br.udesc.ceavi;
 
+import br.udesc.ceavi.view.Tela;
 import javax.swing.*;
 
 /**

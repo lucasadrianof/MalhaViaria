@@ -1,4 +1,4 @@
-package br.udesc.ceavi;
+package br.udesc.ceavi.view;
 
 import br.udesc.ceavi.controller.ControllerMalhaViaria;
 import br.udesc.ceavi.model.entity.Coordenada;
@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +29,7 @@ public class Tela extends JPanel implements ObservadorTela {
     private ControllerMalhaViaria controllerMalhaViaria;
 
     private List<Via> vias = new ArrayList<>();
-    private List<Coordenada> carros = new ArrayList<>();
+    private List<Coordenada> carros = Collections.synchronizedList(new ArrayList<>());
     private final String caminho =  System.getProperty("user.dir") + "/";
 
     public Tela() {
@@ -43,7 +44,7 @@ public class Tela extends JPanel implements ObservadorTela {
     }
 
     @Override
-    public void paintComponent(Graphics a) {
+    public synchronized void paintComponent(Graphics a) {
         super.paintComponent(a);
         g = (Graphics2D) a.create();
 
@@ -110,13 +111,18 @@ public class Tela extends JPanel implements ObservadorTela {
 
     }
 
-    private void desenhaCarros() {
-        carros.forEach((coordenada) -> g.drawImage(getCarro(),coordenada.getPosicaoX() * 25, coordenada.getPosicaoY() * 23, null));
+    private synchronized void desenhaCarros() {
+        synchronized (this.carros) {
+            carros.forEach((coordenada) -> {
+                g.drawImage(getCarro(),coordenada.getPosicaoX() * 25, coordenada.getPosicaoY() * 23, null);
+            });
+        }
     }
     
     @Override
     public void movimentaCarro(Coordenada coordenadaAnterior, Coordenada coordenadaAtual) {
-        g.clearRect(coordenadaAnterior.getPosicaoX() * 25, coordenadaAnterior.getPosicaoY() * 25, 7 * 25 , 6 * 25);
-        g.drawImage(getCarro(),coordenadaAtual.getPosicaoX()*25, coordenadaAtual.getPosicaoY()*23, null);
+        carros.remove(coordenadaAnterior);
+        carros.add(coordenadaAtual);
+        repaint();
     }
 }

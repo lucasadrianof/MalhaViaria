@@ -3,7 +3,8 @@ package br.udesc.ceavi.thread;
 import br.udesc.ceavi.model.entity.MalhaViaria;
 import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
-import br.udesc.ceavi.model.exclusividade.EstrategiaSemaforo;
+import br.udesc.ceavi.model.exclusividade.EstrategiaExclusividade;
+import br.udesc.ceavi.model.exclusividade.EstrategiaMonitor;
 
 import java.util.Random;
 
@@ -21,7 +22,10 @@ public class ThreadInsereVeiculo extends Thread {
 
     @Override
     public void run() {
-        while (true) {            
+        while (true) {
+            EstrategiaExclusividade estrategia = new EstrategiaMonitor();
+            estrategia.setMalhaViaria(this.malhaViaria);
+
             Via[] vias = new Via[malhaViaria.getViasEntrada().size()];
             vias = malhaViaria.getViasEntrada().toArray(vias);
 
@@ -29,14 +33,13 @@ public class ThreadInsereVeiculo extends Thread {
                 Random r  = new Random();
                 int index = r.nextInt(vias.length);
 
-                Veiculo veiculo  = new Veiculo(vias[index].getPontoInicial(), new EstrategiaSemaforo());
-                vias[index].adicionaVeiculo(veiculo);
+                Veiculo veiculo  = new Veiculo(vias[index], estrategia);
                 Thread thVeiculo = new Thread(veiculo);
                 thVeiculo.start();
             }
 
             try {
-                sleep(3000);
+                sleep(1000);
             }
             catch (InterruptedException e) {
                 e.printStackTrace();

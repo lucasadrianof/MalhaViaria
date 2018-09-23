@@ -1,6 +1,8 @@
 package br.udesc.ceavi.controller;
 
-import br.udesc.ceavi.ObservadorTela;
+import br.udesc.ceavi.model.entity.Coordenada;
+import br.udesc.ceavi.model.entity.Observador.ObservadorMovimentoVeiculo;
+import br.udesc.ceavi.view.ObservadorTela;
 import br.udesc.ceavi.model.entity.MalhaViaria;
 import br.udesc.ceavi.model.entity.Observador.ObservadorVia;
 import br.udesc.ceavi.model.entity.Veiculo;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
  * Controller da Manutenção da Tela de Malha Viária
  * @author lucas.adriano
  */
-public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, ObservadorVia {
+public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, ObservadorVia, ObservadorMovimentoVeiculo {
 
     private MalhaViaria malhaViaria;
     
@@ -67,7 +69,15 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
     @Override
     public void veiculoAdicionado(Via via, Veiculo veiculo) {
         observadores.forEach((observador) -> {
+            veiculo.adicionaObservador(this);
             observador.adicionaCarroMalha(via.getPontoInicial());
+        });
+    }
+
+    @Override
+    public void veiculoMovimentado(Veiculo veiculo, Coordenada coordenadaAnterior) {
+        observadores.forEach((observador) -> {
+            observador.movimentaCarro(coordenadaAnterior, veiculo.getCoordenada());
         });
     }
 }

@@ -7,7 +7,7 @@ import br.udesc.ceavi.model.entity.Veiculo;
  * Observador da movimentação de determinado veículo
  * @author lucas.adriano
  */
-public interface ObservadorMovimento {
+public interface ObservadorMovimentoVeiculo {
 
     /**
      * Indica que determinado veículo se movimentou
