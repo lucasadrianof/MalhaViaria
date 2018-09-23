@@ -82,7 +82,7 @@ public class ControllerImportacaoMalha {
         Random r = new Random();
         int pos = 0;
         while(pos == 0){
-            pos = r.nextInt(4);
+            pos = r.nextInt(5);
         }
         return pos;
     }
