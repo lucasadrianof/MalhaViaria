@@ -11,6 +11,7 @@ import br.udesc.ceavi.thread.ThreadInsereVeiculo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller da Manutenção da Tela de Malha Viária
@@ -22,7 +23,7 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
     
     private ControllerImportacaoMalha controllerImportacaoMalha;
     
-    private ArrayList<ObservadorTela> observadores = new ArrayList<ObservadorTela>();
+    private List<ObservadorTela> observadores = new ArrayList<>();
 
     public ControllerMalhaViaria() {
         this.controllerImportacaoMalha = new ControllerImportacaoMalha();

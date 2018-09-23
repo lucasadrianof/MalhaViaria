@@ -1,7 +1,5 @@
 package br.udesc.ceavi.model.entity;
 
-import br.udesc.ceavi.model.bo.ModelVia;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,18 +60,6 @@ public class MalhaViaria {
     private boolean isCoordenadaEntradaSaida(Coordenada coordenada) {
         return coordenada.getPosicaoX() == 0 || coordenada.getPosicaoX() == (linhas - 1) ||
                 coordenada.getPosicaoY() == 0 || coordenada.getPosicaoY() == (colunas - 1);
-    }
-
-    /**
-     * Verifica se a nova via possui algum cruzamento com os existentes e já os adiciona na lista
-     * @param via
-     */
-    private void verificaCruzamentos(Via via) {
-        ModelVia modelVia = new ModelVia();
-
-        for (Via viaExistente : vias) {
-
-        }
     }
 
     /**

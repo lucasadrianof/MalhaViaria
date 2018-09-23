@@ -17,14 +17,19 @@ import java.util.Random;
 public class ThreadInsereVeiculo extends Thread {
 
     private MalhaViaria malhaViaria;
+    private EstrategiaExclusividade exclusividade;
 
     public void setMalhaViaria(MalhaViaria malhaViaria) {
         this.malhaViaria = malhaViaria;
     }
 
+    public void setExclusividade(EstrategiaExclusividade exclusividade) {
+        this.exclusividade = exclusividade;
+    }
+
     @Override
     public void run() {
-        int quantidade = 5;
+        int quantidade = 15;
         List<Thread> threads = new ArrayList<>();
 
         while (threads.size() < quantidade) {

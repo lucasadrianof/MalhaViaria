@@ -1,9 +1,8 @@
 package br.udesc.ceavi;
 
+import br.udesc.ceavi.model.exclusividade.TipoEstrategiaExclusividade;
 import br.udesc.ceavi.view.Tela;
 import java.awt.BorderLayout;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.*;
 
 /**
@@ -35,7 +34,8 @@ public class Principal {
             JButton botaoEncerrar = new JButton("Encerrar");
             botaoEncerrar.setName("btnEncerrar");
 
-            String[] opcoes = { "Semáforo", "Monitor" };
+            TipoEstrategiaExclusividade[] opcoes = {TipoEstrategiaExclusividade.SEMAFORO,
+                                                    TipoEstrategiaExclusividade.MONITOR};
 
             JLabel txtEstrategia = new JLabel("Estratégia: ");
              

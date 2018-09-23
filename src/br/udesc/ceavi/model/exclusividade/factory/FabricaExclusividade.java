@@ -13,4 +13,5 @@ public interface FabricaExclusividade {
      * @return A nova estratégia criada
      */
     public EstrategiaExclusividade criaEstrategia();
+
 }

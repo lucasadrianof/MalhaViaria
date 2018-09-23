@@ -5,6 +5,7 @@ import br.udesc.ceavi.model.entity.Coordenada;
 import br.udesc.ceavi.model.entity.MalhaViaria;
 import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
+import com.sun.istack.internal.NotNull;
 
 import java.util.List;
 import java.util.Random;
@@ -53,11 +54,21 @@ public class EstrategiaMonitor implements EstrategiaExclusividade {
         }
     }
 
-    public synchronized void setViaVeiculo(Via via, Veiculo veiculo) {
+    /**
+     * Atualiza a via do veículo
+     * @param via
+     * @param veiculo
+     */
+    private synchronized void setViaVeiculo(Via via, @NotNull Veiculo veiculo) {
         veiculo.setVia(via);
     }
 
-    public synchronized void setCoordenadaVeiculo(Coordenada coordenada, Veiculo veiculo) {
+    /**
+     * Atualiza a coordenada do veículo
+     * @param coordenada
+     * @param veiculo
+     */
+    private synchronized void setCoordenadaVeiculo(Coordenada coordenada, @NotNull Veiculo veiculo) {
         veiculo.setCoordenada(coordenada);
     }
 }
