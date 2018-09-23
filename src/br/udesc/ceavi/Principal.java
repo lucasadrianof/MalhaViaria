@@ -27,6 +27,7 @@ public class Principal {
             
             JTextField campoQtdeVeiculos = new JTextField(3);
             campoQtdeVeiculos.setName("campoQtdeVeiculos");
+            campoQtdeVeiculos.setText("10");
             
             JButton botaoIniciar = new JButton("Iniciar");
             botaoIniciar.setName("btnIniciar");
