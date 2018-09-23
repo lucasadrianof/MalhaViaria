@@ -3,6 +3,7 @@ package br.udesc.ceavi.view;
 import br.udesc.ceavi.controller.ControllerMalhaViaria;
 import br.udesc.ceavi.model.entity.Coordenada;
 import br.udesc.ceavi.model.entity.MalhaViaria;
+import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
 
 import java.awt.BasicStroke;
@@ -29,7 +30,7 @@ public class Tela extends JPanel implements ObservadorTela {
     private ControllerMalhaViaria controllerMalhaViaria;
 
     private List<Via> vias = new ArrayList<>();
-    private List<Coordenada> carros = Collections.synchronizedList(new ArrayList<>());
+    private List<Veiculo> carros = Collections.synchronizedList(new ArrayList<>());
     private final String caminho =  System.getProperty("user.dir") + "/";
 
     public Tela() {
@@ -65,7 +66,7 @@ public class Tela extends JPanel implements ObservadorTela {
     private BufferedImage getCarro() {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File(caminho + "malhas/car.png"));
+            image = ImageIO.read(new File(caminho + "malhas/car_left.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,24 +106,25 @@ public class Tela extends JPanel implements ObservadorTela {
     }
 
     @Override
-    public void adicionaCarroMalha(Coordenada coordenada) {
-        carros.add(coordenada);
+    public void adicionaCarroMalha(Veiculo veiculo) {
+        carros.add(veiculo);
         repaint();
 
     }
 
     private synchronized void desenhaCarros() {
         synchronized (this.carros) {
-            carros.forEach((coordenada) -> {
-                g.drawImage(getCarro(),coordenada.getPosicaoX() * 25, coordenada.getPosicaoY() * 23, null);
+            carros.forEach((carro) -> {
+                g.drawImage(getCarro(),carro.getCoordenada().getPosicaoX() * 25, 
+                                       carro.getCoordenada().getPosicaoY() * 23, null);
             });
         }
     }
     
     @Override
-    public void movimentaCarro(Coordenada coordenadaAnterior, Coordenada coordenadaAtual) {
-        carros.remove(coordenadaAnterior);
-        carros.add(coordenadaAtual);
+    public void movimentaCarro(Veiculo veiculo) {
+        carros.remove(veiculo);
+        carros.add(veiculo);
         repaint();
     }
 }

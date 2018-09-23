@@ -1,6 +1,6 @@
 package br.udesc.ceavi;
 
-import br.udesc.ceavi.model.exclusividade.TipoEstrategiaExclusividade;
+import br.udesc.ceavi.view.Opcoes;
 import br.udesc.ceavi.view.Tela;
 import java.awt.BorderLayout;
 import javax.swing.*;
@@ -22,35 +22,7 @@ public class Principal {
             frame.setVisible( true );
             frame.setSize(1000,700);
             
-            JLabel txtQtdeVeiculos = new JLabel("Quantidade Veículos: ");
-            
-            JTextField campoQtdeVeiculos = new JTextField(3);
-            campoQtdeVeiculos.setName("campoQtdeVeiculos");
-            campoQtdeVeiculos.setText("10");
-            
-            JButton botaoIniciar = new JButton("Iniciar");
-            botaoIniciar.setName("btnIniciar");
-            
-            JButton botaoEncerrar = new JButton("Encerrar");
-            botaoEncerrar.setName("btnEncerrar");
-
-            TipoEstrategiaExclusividade[] opcoes = {TipoEstrategiaExclusividade.SEMAFORO,
-                                                    TipoEstrategiaExclusividade.MONITOR};
-
-            JLabel txtEstrategia = new JLabel("Estratégia: ");
-             
-            JComboBox campoEstrategia = new JComboBox(opcoes);
-            campoEstrategia.setName("campoEstrategia");
-            
-            JPanel jPanel = new JPanel();
-            jPanel.add(txtQtdeVeiculos);
-            jPanel.add(campoQtdeVeiculos);
-            jPanel.add(txtEstrategia);
-            jPanel.add(campoEstrategia);
-            jPanel.add(botaoIniciar);
-            jPanel.add(botaoEncerrar);
-            
-            frame.add(jPanel, BorderLayout.SOUTH);
+            frame.add(new Opcoes(), BorderLayout.SOUTH);
             frame.add(new Tela());
         });
     }
