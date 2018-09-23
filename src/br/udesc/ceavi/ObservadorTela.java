@@ -1,19 +1,18 @@
 package br.udesc.ceavi;
 
 import br.udesc.ceavi.model.entity.Coordenada;
-import java.io.IOException;
+import br.udesc.ceavi.model.entity.MalhaViaria;
+import br.udesc.ceavi.model.entity.Via;
 
 /**
- *
+     *
  * @author jessicapeixe
  */
 public interface ObservadorTela {
     
-    public void criaVia(Coordenada inicio, Coordenada fim);
+    public void criaVia(Via via);
 
-    public void criaMapa(int linhas, int colunas);
-    
-    public void finalizaMontagemTela();
+    public void criaMapa(MalhaViaria malhaViaria);
     
     public void adicionaCarroMalha(Coordenada coordenada);
     

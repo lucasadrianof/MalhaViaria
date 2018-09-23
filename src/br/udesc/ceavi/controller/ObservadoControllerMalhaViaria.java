@@ -16,5 +16,4 @@ interface ObservadoControllerMalhaViaria {
     
     public void notificaObservadoresMontarMapa();
     
-    public void notificaObservadoresFinalizar();
 }

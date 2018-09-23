@@ -32,7 +32,6 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
 
         notificaObservadoresMontarMapa();
         notificaObservadoresMontarVias();
-        notificaObservadoresFinalizar();
 
         ThreadInsereVeiculo threadInsereVeiculo = new ThreadInsereVeiculo();
         threadInsereVeiculo.setMalhaViaria(this.malhaViaria);
@@ -54,7 +53,7 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
         malhaViaria.getVias().forEach((via) -> {
             via.adicionaObservador(this);
             observadores.forEach((observador) -> {
-                observador.criaVia(via.getPontoInicial(), via.getPontoFinal());
+                observador.criaVia(via);
             });
         });
         
@@ -62,16 +61,7 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
 
     @Override
     public void notificaObservadoresMontarMapa() {
-        observadores.forEach((observador) -> {
-            observador.criaMapa(malhaViaria.getLinhas(),malhaViaria.getColunas());
-        });
-    }
-    
-    @Override
-    public void notificaObservadoresFinalizar(){
-        observadores.forEach((observador) -> {
-            observador.finalizaMontagemTela();
-        });
+        observadores.forEach((observador) -> observador.criaMapa(malhaViaria));
     }
 
     @Override

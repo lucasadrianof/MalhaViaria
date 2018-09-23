@@ -2,6 +2,9 @@ package br.udesc.ceavi;
 
 import br.udesc.ceavi.controller.ControllerMalhaViaria;
 import br.udesc.ceavi.model.entity.Coordenada;
+import br.udesc.ceavi.model.entity.MalhaViaria;
+import br.udesc.ceavi.model.entity.Via;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -19,33 +22,34 @@ import javax.swing.JPanel;
 
 public class Tela extends JPanel implements ObservadorTela {
     
-    private int tempPos = 0;
-    
-    private ArrayList<Color> cores = new ArrayList<Color>();
-    
     private Graphics2D g;
-    
+
+    private MalhaViaria malhaViaria;
     private ControllerMalhaViaria controllerMalhaViaria;
-    
+
+    private List<Via> vias = new ArrayList<>();
+    private List<Coordenada> carros = new ArrayList<>();
     private final String caminho =  System.getProperty("user.dir") + "/";
 
-    @Override
-    public void paintComponent( Graphics a ){
-        
-        super.paintComponent(a);
-        
-        g = (Graphics2D) a.create();
-        
-        inicializaCores();
-        
+    public Tela() {
         try {
             controllerMalhaViaria = new ControllerMalhaViaria();
             controllerMalhaViaria.adicionaObservador(this);
             controllerMalhaViaria.iniciaMalhaViaria();
-            
-        } catch (IOException ex) {
+        }
+        catch (IOException ex) {
             Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void paintComponent(Graphics a) {
+        super.paintComponent(a);
+        g = (Graphics2D) a.create();
+
+        desenhaVia();
+        desenhaMalhaViaria();
+        desenhaCarros();
     }
     
     private static BufferedImage resize(BufferedImage img, int height, int width) {
@@ -57,30 +61,6 @@ public class Tela extends JPanel implements ObservadorTela {
         return resized;
     }
     
-    private void inicializaCores(){
-        cores.add(Color.yellow);
-        cores.add(Color.red);
-        cores.add(Color.blue);
-        cores.add(Color.orange);
-        cores.add(Color.pink);
-        cores.add(Color.magenta);
-        cores.add(Color.cyan);
-        cores.add(Color.gray);
-        cores.add(Color.lightGray);
-        cores.add(Color.darkGray);
-    }
-    
-    private Color getRandomColor(){
-        Random r = new Random();
-        int pos = r.nextInt(cores.size());
-        Color cor = cores.remove(pos);
-
-        if (cores.size() == 0) {
-            inicializaCores();
-        }
-        return cor;
-    } 
-
     private BufferedImage getCarro() {
         BufferedImage image = null;
         try {
@@ -92,31 +72,46 @@ public class Tela extends JPanel implements ObservadorTela {
     }
     
     @Override
-    public void criaVia(Coordenada inicio, Coordenada fim) {
+    public void criaVia(Via via) {
+        vias.add(via);
+    }
+
+    /**
+     * Desenha a via na tela
+     */
+    private void desenhaVia() {
         g.setColor(Color.gray);
-        g.setStroke(new BasicStroke(30)); 
-        g.drawLine(inicio.getPosicaoX() * 25, inicio.getPosicaoY() * 25, fim.getPosicaoX() * 25, fim.getPosicaoY() * 25);
+        g.setStroke(new BasicStroke(30));
+
+        vias.forEach((via) -> {
+            g.drawLine(via.getPontoInicial().getPosicaoX() * 25,
+                       via.getPontoInicial().getPosicaoY() * 25,
+                       via.getPontoFinal().getPosicaoX() * 25,
+                       via.getPontoFinal().getPosicaoY() * 25
+            );
+        });
     }
 
     @Override
-    public void criaMapa(int linhas, int colunas) {
+    public void criaMapa(MalhaViaria malhaViaria) {
+        this.malhaViaria = malhaViaria;
+    }
+
+    private void desenhaMalhaViaria() {
         g.setColor(Color.BLACK);
         g.setStroke(new BasicStroke(2));
-        g.drawRect(0, 0, colunas * 25, linhas * 25);
+        g.drawRect(0, 0, malhaViaria.getColunas() * 25, malhaViaria.getLinhas() * 25);
     }
 
     @Override
-    public void finalizaMontagemTela() {
-        g.dispose();
-    }
-    
-    @Override
     public void adicionaCarroMalha(Coordenada coordenada) {
-        g.setColor(Color.red);
-        g.setStroke(new BasicStroke(2));
-        g.drawLine(25, 25, 30, 30);
-        g.setBackground(Color.blue);
-        //g.drawImage(getCarro(),coordenada.getPosicaoX() * 25, coordenada.getPosicaoY() * 23, null);
+        carros.add(coordenada);
+        repaint();
+
+    }
+
+    private void desenhaCarros() {
+        carros.forEach((coordenada) -> g.drawImage(getCarro(),coordenada.getPosicaoX() * 25, coordenada.getPosicaoY() * 23, null));
     }
     
     @Override
