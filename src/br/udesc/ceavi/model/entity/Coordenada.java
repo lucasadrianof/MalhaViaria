@@ -47,4 +47,16 @@ public class Coordenada {
     public boolean isLiberada() {
         return veiculo == null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof Coordenada) {
+            return ((Coordenada) obj).getPosicaoX() == this.getPosicaoX() &&
+                    ((Coordenada) obj).getPosicaoY() == this.getPosicaoY();
+        }
+        return false;
+    }
 }

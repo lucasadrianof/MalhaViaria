@@ -49,7 +49,7 @@ public class MalhaViaria {
      * @param via
      */
     private void verificaViaSaida(Via via) {
-        if (isCoordenadaEntradaSaida(via.getPontoInicial())) {
+        if (isCoordenadaEntradaSaida(via.getPontoFinal())) {
             viasSaida.add(via);
         }
     }

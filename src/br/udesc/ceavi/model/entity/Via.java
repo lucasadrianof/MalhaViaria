@@ -93,4 +93,16 @@ public class Via {
             return DirecaoVia.DIREITA_ESQUERDA;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof Via) {
+            return ((Via) obj).getPontoInicial().equals(this.getPontoInicial()) &&
+                    ((Via) obj).getPontoFinal().equals(this.getPontoFinal());
+        }
+        return false;
+    }
 }

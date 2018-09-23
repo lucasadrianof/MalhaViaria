@@ -40,7 +40,7 @@ public class Veiculo implements Runnable {
     }
 
     public Coordenada getCoordenada() {
-        return coordenada;
+            return coordenada;
     }
 
     public void setCoordenada(Coordenada coordenada) {
@@ -61,17 +61,19 @@ public class Veiculo implements Runnable {
 
     @Override
     public void run() {
-        Coordenada coordenadaAnterior = this.coordenada;
-        estrategia.movimentaVeiculo(this);
+        while (true) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-        observadores.forEach((observadorMovimento) -> {
-            observadorMovimento.veiculoMovimentado(this, coordenadaAnterior);
-        });
+            Coordenada coordenadaAnterior = this.coordenada;
+            estrategia.movimentaVeiculo(this);
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            observadores.forEach((observadorMovimento) -> {
+                observadorMovimento.veiculoMovimentado(this, coordenadaAnterior);
+            });
         }
     }
 }

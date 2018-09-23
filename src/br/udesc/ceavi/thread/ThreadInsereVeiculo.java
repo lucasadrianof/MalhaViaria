@@ -6,6 +6,8 @@ import br.udesc.ceavi.model.entity.Via;
 import br.udesc.ceavi.model.exclusividade.EstrategiaExclusividade;
 import br.udesc.ceavi.model.exclusividade.EstrategiaMonitor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -22,7 +24,10 @@ public class ThreadInsereVeiculo extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        int quantidade = 5;
+        List<Thread> threads = new ArrayList<>();
+
+        while (threads.size() < quantidade) {
             EstrategiaExclusividade estrategia = new EstrategiaMonitor();
             estrategia.setMalhaViaria(this.malhaViaria);
 
@@ -36,10 +41,12 @@ public class ThreadInsereVeiculo extends Thread {
                 Veiculo veiculo  = new Veiculo(vias[index], estrategia);
                 Thread thVeiculo = new Thread(veiculo);
                 thVeiculo.start();
+
+                threads.add(thVeiculo);
             }
 
             try {
-                sleep(1000);
+                sleep(3000);
             }
             catch (InterruptedException e) {
                 e.printStackTrace();

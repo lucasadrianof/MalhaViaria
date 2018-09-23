@@ -39,11 +39,11 @@ public class ModelMovimentoVeiculo {
     public List<Via> getProximasVias() {
         List<Via> vias = new ArrayList<>();
 
-        for (Via via : malhaViaria.getVias()) {
+        malhaViaria.getVias().forEach((via) -> {
             if (this.via.getPontoFinal().equals(via.getPontoInicial())) {
                 vias.add(via);
             }
-        }
+        });
 
         return vias;
     }
