@@ -8,7 +8,8 @@ import br.udesc.ceavi.model.exclusividade.EstrategiaSemaforo;
 import java.util.Random;
 
 /**
- *
+ * Thread de inserção de veículos na malha
+ * @author lucas.adriano
  */
 public class ThreadInsereVeiculo extends Thread {
 
@@ -28,7 +29,7 @@ public class ThreadInsereVeiculo extends Thread {
                 Random r  = new Random();
                 int index = r.nextInt(vias.length);
 
-                Veiculo veiculo  = new Veiculo(vias[index], new EstrategiaSemaforo());
+                Veiculo veiculo  = new Veiculo(vias[index].getPontoInicial(), new EstrategiaSemaforo());
                 vias[index].adicionaVeiculo(veiculo);
                 Thread thVeiculo = new Thread(veiculo);
                 thVeiculo.start();

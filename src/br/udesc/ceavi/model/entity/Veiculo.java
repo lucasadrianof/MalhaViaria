@@ -12,27 +12,17 @@ import java.util.ArrayList;
  */
 public class Veiculo implements Runnable {
 
-    private Via via;
     private Coordenada coordenada;
     private EstrategiaExclusividade estrategia;
     private List<ObservadorMovimento> observadores = new ArrayList<>();
 
-    public Veiculo(Via via, EstrategiaExclusividade estrategia) {
-        this.via = via;
-        this.coordenada = via.getPontoInicial();
+    public Veiculo(Coordenada coordenada, EstrategiaExclusividade estrategia) {
+        this.coordenada = coordenada;
         this.estrategia = estrategia;
     }
 
     public EstrategiaExclusividade getEstrategia() {
         return estrategia;
-    }
-
-    public Via getVia() {
-        return via;
-    }
-
-    public void setVia(Via via) {
-        this.via = via;
     }
 
     public Coordenada getCoordenada() {
@@ -45,15 +35,6 @@ public class Veiculo implements Runnable {
      */
     public void adicionaObservador(ObservadorMovimento observador) {
         observadores.add(observador);
-    }
-
-    /**
-     * Remove um observador do veículo
-     * @param observadorMovimento
-     * @return Booleano, indicando se removeu o observador da lista
-     */
-    public boolean removeObservador(ObservadorMovimento observadorMovimento) {
-        return observadores.remove(observadorMovimento);
     }
 
     @Override

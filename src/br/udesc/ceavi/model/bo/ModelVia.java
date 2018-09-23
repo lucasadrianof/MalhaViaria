@@ -42,7 +42,7 @@ public class ModelVia {
      * @param via Via
      * @return Próxima coordenada, ou null quando chegou ao final da via
      */
-    private Coordenada getNext(Coordenada coordenada, Via via) {
+    public Coordenada getNext(Coordenada coordenada, Via via) {
         int x = -1, y  = -1;
 
         switch (via.getDirecao()) {

@@ -13,13 +13,12 @@ public class Principal {
      * @param args
      */
     public static void main(String[] args) {
-        Tela panel  = new Tela();
-        JFrame frame= new JFrame("Malha Viária");
+        Tela panel   = new Tela();
+        JFrame frame = new JFrame("Malha Viária");
 
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         frame.setVisible( true );
         frame.setSize(1000,700);
-        
         frame.add(panel);
     }
 }
