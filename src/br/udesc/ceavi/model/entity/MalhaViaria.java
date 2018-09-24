@@ -1,6 +1,9 @@
 package br.udesc.ceavi.model.entity;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -11,6 +14,8 @@ public class MalhaViaria {
 
     private int linhas;
     private int colunas;
+
+    private HashMap<Pair<Integer, Integer>, Coordenada> coordenadas = new HashMap<>();
 
     private List<Via> vias = new ArrayList<>();
     private List<Via> viasEntrada = new ArrayList<>();
@@ -26,10 +31,36 @@ public class MalhaViaria {
      * @param via Via a ser adicionada
      */
     public void adicionaVia(Via via) {
-        //verificaCruzamentos(via);
         verificaViaEntrada(via);
         verificaViaSaida(via);
         vias.add(via);
+    }
+
+    /**
+     * Adiciona uma coordenada na malha viária
+     * @param coordenada
+     */
+    public void adicionaCoordenada(Coordenada coordenada) {
+        Pair pair = new Pair(coordenada.getPosicaoX(), coordenada.getPosicaoY());
+        coordenadas.put(pair, coordenada);
+    }
+
+    /**
+     * Retorna a coordenada de posição X e Y
+     * @param posicaoX
+     * @param posicaoY
+     * @return
+     */
+    public Coordenada getCoordenada(int posicaoX, int posicaoY) {
+        Pair pair = new Pair(posicaoX, posicaoY);
+        Coordenada coordenada = coordenadas.get(pair);
+
+        if (coordenada == null) {
+            coordenada = new Coordenada(posicaoX, posicaoY);
+            coordenadas.put(pair, coordenada);
+        }
+
+        return coordenada;
     }
 
     /**

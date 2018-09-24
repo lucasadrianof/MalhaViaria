@@ -1,6 +1,5 @@
 package br.udesc.ceavi.model.exclusividade;
 
-import br.udesc.ceavi.model.entity.Coordenada;
 import br.udesc.ceavi.model.entity.Veiculo;
 
 /**

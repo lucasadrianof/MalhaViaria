@@ -88,7 +88,7 @@ public class ModelMovimentoVeiculo {
         }
 
         if (x >= 0 && y >= 0) {
-            return new Coordenada(x, y);
+            return malhaViaria.getCoordenada(x, y);
         }
         return null;
     }

@@ -76,6 +76,7 @@ abstract public class EstrategiaPadrao implements EstrategiaExclusividade {
                 viasVeiculo.remove(hashVeiculo);
             }
             else {
+                veiculo.getCoordenada().setLiberada(true);
                 veiculo.setEmMovimento(false);
             }
         }
