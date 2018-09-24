@@ -66,8 +66,11 @@ public class Veiculo implements Runnable {
         while (isEmMovimento()) {
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            }
+            catch (InterruptedException e) {
+                observadores.forEach((observador) -> observador.veiculoFinalizadoBruscamente(this));
+                this.setEmMovimento(false);
+                break;
             }
 
             Coordenada coordenadaAnterior = this.coordenada;

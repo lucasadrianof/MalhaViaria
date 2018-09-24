@@ -20,8 +20,8 @@ import java.util.List;
 public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, ObservadorInsercaoVeiculo, ObservadorMovimentoVeiculo {
 
     private MalhaViaria malhaViaria;
-    
     private ControllerImportacaoMalha controllerImportacaoMalha;
+    private ThreadInsereVeiculo threadInsereVeiculo;
     
     private List<ObservadorTela> observadores = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
         notificaObservadoresMontarMapa();
         notificaObservadoresMontarVias();
 
-        ThreadInsereVeiculo threadInsereVeiculo = new ThreadInsereVeiculo();
+        threadInsereVeiculo = new ThreadInsereVeiculo();
         threadInsereVeiculo.setMalhaViaria(this.malhaViaria);
         threadInsereVeiculo.addObservador(this);
         threadInsereVeiculo.setQuantidade(qtde);
@@ -89,15 +89,13 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
     }
 
     public void encerraBruscamente() {
-        //parar execucao
-        malhaEncerradaBruscamente();
-        
+        threadInsereVeiculo.finalizaExecucaoVeiculos();
     }
-    
+
     @Override
-    public void malhaEncerradaBruscamente() {
+    public void veiculoFinalizadoBruscamente(Veiculo veiculo) {
         observadores.forEach((observador) -> {
-            //observador.limpaMapa();
+            observador.limpaMapa();
         });
     }
 

@@ -52,6 +52,7 @@ public class Coordenada {
 
     @Override
     public String toString() {
-        return String.format("Coordenada: X-Y: %s-%s", this.getPosicaoX(), this.getPosicaoY());
+        String format = "Coordenada: %s X-Y: %s-%s";
+        return String.format(format, Integer.toHexString(hashCode()), this.getPosicaoX(), this.getPosicaoY());
     }
 }

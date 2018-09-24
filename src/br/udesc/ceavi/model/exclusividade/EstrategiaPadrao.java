@@ -58,8 +58,8 @@ abstract public class EstrategiaPadrao implements EstrategiaExclusividade {
                     }
                     else {
                         anterior.setLiberada(false);
-                        proxima.setLiberada(true);
                         veiculo.setCoordenada(anterior);
+                        proxima.setLiberada(true);
                     }
                 }
             }

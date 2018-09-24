@@ -19,9 +19,10 @@ public class ThreadInsereVeiculo extends Thread {
 
     private MalhaViaria malhaViaria;
     private EstrategiaExclusividade exclusividade;
+    private List<Thread> threads = new ArrayList<>();
     private List<ObservadorInsercaoVeiculo> observadoresInsercaoVeiculos = new ArrayList<>();
-    private int qtdeVeiculos;
     private TipoEstrategiaExclusividade estrategia;
+    private int qtdeVeiculos;
 
     public void setMalhaViaria(MalhaViaria malhaViaria) {
         this.malhaViaria = malhaViaria;
@@ -45,8 +46,6 @@ public class ThreadInsereVeiculo extends Thread {
 
     @Override
     public void run() {
-        List<Thread> threads = new ArrayList<>();
-
         while (threads.size() < this.qtdeVeiculos) {
             EstrategiaExclusividade estrategia = new EstrategiaMonitor();
             estrategia.setMalhaViaria(this.malhaViaria);
@@ -75,6 +74,18 @@ public class ThreadInsereVeiculo extends Thread {
             catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * Finaliza a execução de todas as threads de veículos
+     */
+    public void finalizaExecucaoVeiculos() {
+        for (Thread thread : threads) {
+            if (!thread.isInterrupted()) {
+                thread.interrupt();
+            }
+            threads.remove(thread);
         }
     }
 }
