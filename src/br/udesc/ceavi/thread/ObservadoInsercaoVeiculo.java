@@ -12,6 +12,6 @@ public interface ObservadoInsercaoVeiculo {
      * Indica que o veículo foi inserido na malha
      * @param veiculo
      */
-    public void veiculoJnserido(Veiculo veiculo);
+    public void veiculoInserido(Veiculo veiculo);
 
 }

@@ -1,11 +1,11 @@
 package br.udesc.ceavi.thread;
 
 import br.udesc.ceavi.model.entity.MalhaViaria;
-import br.udesc.ceavi.model.entity.Observador.ObservadorMovimentoVeiculo;
 import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
 import br.udesc.ceavi.model.exclusividade.EstrategiaExclusividade;
 import br.udesc.ceavi.model.exclusividade.EstrategiaMonitor;
+import br.udesc.ceavi.model.exclusividade.TipoEstrategiaExclusividade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,8 @@ public class ThreadInsereVeiculo extends Thread {
     private MalhaViaria malhaViaria;
     private EstrategiaExclusividade exclusividade;
     private List<ObservadoInsercaoVeiculo> observadoresInsercaoVeiculos = new ArrayList<>();
+    private int qtdeVeiculos;
+    private TipoEstrategiaExclusividade estrategia;
 
     public void setMalhaViaria(MalhaViaria malhaViaria) {
         this.malhaViaria = malhaViaria;
@@ -28,6 +30,14 @@ public class ThreadInsereVeiculo extends Thread {
     public void setExclusividade(EstrategiaExclusividade exclusividade) {
         this.exclusividade = exclusividade;
     }
+    
+    public void setQuantidade(int qtde) {
+        this.qtdeVeiculos = qtde;
+    }
+
+    public void setEstrategia(TipoEstrategiaExclusividade estrategia) {
+        this.estrategia = estrategia;
+    }
 
     public void addObservador(ObservadoInsercaoVeiculo observadoInsercaoVeiculo) {
         observadoresInsercaoVeiculos.add(observadoInsercaoVeiculo);
@@ -35,10 +45,9 @@ public class ThreadInsereVeiculo extends Thread {
 
     @Override
     public void run() {
-        int quantidade = 3;
         List<Thread> threads = new ArrayList<>();
 
-        while (threads.size() < quantidade) {
+        while (threads.size() < this.qtdeVeiculos) {
             EstrategiaExclusividade estrategia = new EstrategiaMonitor();
             estrategia.setMalhaViaria(this.malhaViaria);
 
@@ -51,7 +60,7 @@ public class ThreadInsereVeiculo extends Thread {
 
                 if (vias[index].getPontoInicial().isLiberada()) {
                     Veiculo veiculo  = new Veiculo(vias[index], estrategia);
-                    observadoresInsercaoVeiculos.forEach((observador) -> observador.veiculoJnserido(veiculo));
+                    observadoresInsercaoVeiculos.forEach((observador) -> observador.veiculoInserido(veiculo));
 
                     Thread thVeiculo = new Thread(veiculo);
                     thVeiculo.start();

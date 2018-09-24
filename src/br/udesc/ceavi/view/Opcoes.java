@@ -1,6 +1,8 @@
 package br.udesc.ceavi.view;
 
 import br.udesc.ceavi.model.exclusividade.TipoEstrategiaExclusividade;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -26,6 +28,7 @@ public class Opcoes extends JPanel{
                                                                     TipoEstrategiaExclusividade.MONITOR};
     
     private final String[] opcoesMapa = {"1","2","3","4"};
+    private Tela tela;
 
     public JTextField getCampoQtdeVeiculos() {
         return campoQtdeVeiculos;
@@ -48,10 +51,10 @@ public class Opcoes extends JPanel{
     }
     
     public Opcoes(){
-        adcionaCampos();
+        adicionaCampos();
     }
     
-    private void adcionaCampos(){
+    private void adicionaCampos(){
         txtQtdeVeiculos   = new JLabel("Quantidade Veículos: ");
         txtEstrategia     = new JLabel("Estratégia: ");
         txtMapa           = new JLabel("Mapa: ");
@@ -61,6 +64,10 @@ public class Opcoes extends JPanel{
         botaoIniciar      = new JButton("Iniciar");
         botaoEncerrar     = new JButton("Encerrar");
         
+        botaoIniciar.addActionListener((ActionEvent e) -> {
+            tela.iniciaMalhaViaria();
+        });
+        
         add(txtQtdeVeiculos);
         add(campoQtdeVeiculos);
         add(txtEstrategia);
@@ -69,5 +76,9 @@ public class Opcoes extends JPanel{
         add(campoMapa);
         add(botaoIniciar);
         add(botaoEncerrar);
+    }
+
+    public void setViewTela(Tela tela) {
+        this.tela = tela;
     }
 }

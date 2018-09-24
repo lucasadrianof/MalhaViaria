@@ -6,7 +6,7 @@ import br.udesc.ceavi.thread.ObservadoInsercaoVeiculo;
 import br.udesc.ceavi.view.ObservadorTela;
 import br.udesc.ceavi.model.entity.MalhaViaria;
 import br.udesc.ceavi.model.entity.Veiculo;
-import br.udesc.ceavi.model.entity.Via;
+import br.udesc.ceavi.model.exclusividade.TipoEstrategiaExclusividade;
 import br.udesc.ceavi.thread.ThreadInsereVeiculo;
 
 import java.io.IOException;
@@ -29,8 +29,8 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
         this.controllerImportacaoMalha = new ControllerImportacaoMalha();
     }
     
-    public void iniciaMalhaViaria() throws IOException {
-        this.controllerImportacaoMalha.iniciaImportacao();
+    public void iniciaMalhaViaria(int qtde, int mapa, TipoEstrategiaExclusividade estrategia) throws IOException {
+        this.controllerImportacaoMalha.iniciaImportacao(mapa);
         this.malhaViaria = this.controllerImportacaoMalha.getMalhaViaria();
 
         notificaObservadoresMontarMapa();
@@ -39,6 +39,8 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
         ThreadInsereVeiculo threadInsereVeiculo = new ThreadInsereVeiculo();
         threadInsereVeiculo.setMalhaViaria(this.malhaViaria);
         threadInsereVeiculo.addObservador(this);
+        threadInsereVeiculo.setQuantidade(qtde);
+        threadInsereVeiculo.setEstrategia(estrategia);
         threadInsereVeiculo.start();
     }
 
@@ -67,7 +69,7 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
     }
 
     @Override
-    public void veiculoJnserido(Veiculo veiculo) {
+    public void veiculoInserido(Veiculo veiculo) {
         veiculo.adicionaObservador(this);
         observadores.forEach((observador) -> observador.adicionaCarroMalha(veiculo));
     }
@@ -81,6 +83,8 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
 
     @Override
     public void veiculoFinalizado(Veiculo veiculo) {
-
+        observadores.forEach((observador) -> {
+            observador.removeCarro(veiculo);
+        });
     }
 }
