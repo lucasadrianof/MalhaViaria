@@ -73,16 +73,16 @@ public class ModelMovimentoVeiculo {
                 break;
 
             case CIMA_BAIXO:
-                if (coordenada.getPosicaoY() < via.getPontoFinal().getPosicaoY()) {
+                if (coordenada.getPosicaoY() > via.getPontoFinal().getPosicaoY()) {
                     x = coordenada.getPosicaoX();
-                    y = coordenada.getPosicaoY() + 1;
+                    y = coordenada.getPosicaoY() - 1;
                 }
                 break;
 
             default:
-                if (coordenada.getPosicaoY() > via.getPontoFinal().getPosicaoY()) {
+                if (coordenada.getPosicaoY() < via.getPontoFinal().getPosicaoY()) {
                     x = coordenada.getPosicaoX();
-                    y = coordenada.getPosicaoY() - 1;
+                    y = coordenada.getPosicaoY() + 1;
                 }
                 break;
         }

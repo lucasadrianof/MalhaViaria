@@ -154,7 +154,7 @@ public class Tela extends JPanel implements ObservadorTela {
     }
     
     @Override
-    public void movimentaCarro(Veiculo veiculo) {
+    public synchronized void movimentaCarro(Veiculo veiculo) {
         repaint();
     }
 

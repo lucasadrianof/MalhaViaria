@@ -48,9 +48,9 @@ public class Via {
         //Se a via é vertical
         if (pontoInicial.getPosicaoX() == pontoFinal.getPosicaoX()) {
             if (pontoInicial.getPosicaoY() < pontoFinal.getPosicaoY()) {
-                return DirecaoVia.CIMA_BAIXO;
+                return DirecaoVia.BAIXO_CIMA;
             }
-            return DirecaoVia.BAIXO_CIMA;
+            return DirecaoVia.CIMA_BAIXO;
         }
         else { //horizontal
             if (pontoInicial.getPosicaoX() < pontoFinal.getPosicaoX()) {
