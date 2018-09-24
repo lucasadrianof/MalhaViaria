@@ -1,13 +1,6 @@
 package br.udesc.ceavi.model.exclusividade;
 
-import br.udesc.ceavi.model.bo.ModelMovimentoVeiculo;
 import br.udesc.ceavi.model.entity.Coordenada;
-import br.udesc.ceavi.model.entity.Veiculo;
-import br.udesc.ceavi.model.entity.Via;
-import com.sun.istack.internal.NotNull;
-
-import java.util.List;
-import java.util.Random;
 
 /**
  * Estratégia para adquirir "lock" utilizando Monitores
@@ -16,28 +9,9 @@ import java.util.Random;
 public class EstrategiaMonitor extends EstrategiaPadrao {
 
     @Override
-    protected synchronized void setViaVeiculo(@NotNull Veiculo veiculo, @NotNull ModelMovimentoVeiculo movimentoVeiculo) {
-        List<Via> vias   = movimentoVeiculo.getProximasVias();
-        Random random    = new Random();
-        int proximaVia   = random.nextInt(vias.size());
-        Via viaNova      = vias.get(proximaVia);
-        Coordenada cruzamento  = viaNova.getPontoInicial();
-        Coordenada proximaCruz = movimentoVeiculo.getNext(cruzamento, viaNova);
-
-        //Tenta adquirir o lock do cruzamento somente se o cruzamento e a próxima via está liberada
-        if (cruzamento.isLiberada() && proximaCruz.isLiberada()) {
-            setCoordenadaVeiculo(viaNova.getPontoInicial(), veiculo);
-            veiculo.setVia(viaNova);
+    protected synchronized void getAcessoCoordenada(Coordenada coordenada) {
+        if (coordenada.isLiberada()) {
+            coordenada.setLiberada(false);
         }
-    }
-
-    @Override
-    protected synchronized void setCoordenadaVeiculo(Coordenada coordenada, @NotNull Veiculo veiculo) {
-        if (!coordenada.isLiberada()) {
-            System.out.println("********* fudeuuuu **********");
-        }
-        veiculo.getCoordenada().setLiberada(true);
-        veiculo.setCoordenada(coordenada);
-        veiculo.getCoordenada().setLiberada(false);
     }
 }

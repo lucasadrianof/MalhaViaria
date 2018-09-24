@@ -7,6 +7,8 @@ import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Classe padrão de estratégias de exclusividade
@@ -15,6 +17,7 @@ import java.util.HashMap;
 abstract public class EstrategiaPadrao implements EstrategiaExclusividade {
 
     protected MalhaViaria malhaViaria;
+    protected HashMap<String, Via> viasVeiculo = new HashMap<>();
 
     @Override
     public void setMalhaViaria(MalhaViaria malhaViaria) {
@@ -25,34 +28,49 @@ abstract public class EstrategiaPadrao implements EstrategiaExclusividade {
     public void movimentaVeiculo(Veiculo veiculo) {
         Via via = veiculo.getVia();
         ModelMovimentoVeiculo movimentoVeiculo = new ModelMovimentoVeiculo(veiculo, malhaViaria);
+        Coordenada proxima = movimentoVeiculo.getNext(veiculo.getCoordenada(), via);
+        boolean isViaSaida = malhaViaria.getViasSaida().contains(via);
+        String hashVeiculo = Integer.toHexString(veiculo.hashCode());
 
-        Coordenada coordenada = movimentoVeiculo.getNext(veiculo.getCoordenada(), via);
+        if (proxima != null) {
+            boolean proximoIsUltimo = proxima.equals(via.getPontoFinal());
 
-        //Caso o veículo tenha chegado ao final da via e esta via não seja uma de saída
-        if (coordenada == null) {
-            if (!malhaViaria.getViasSaida().contains(via)) {
-                setViaVeiculo(veiculo, movimentoVeiculo);
+            getAcessoCoordenada(proxima);
+            veiculo.getCoordenada().setLiberada(true);
+            veiculo.setCoordenada(proxima);
+
+            if (proximoIsUltimo && !isViaSaida) {
+                List<Via> vias   = movimentoVeiculo.getProximasVias();
+                Random random    = new Random();
+                int proximaVia   = random.nextInt(vias.size());
+                Via viaNova      = vias.get(proximaVia);
+                proxima = movimentoVeiculo.getNext(proxima, viaNova);
+
+                getAcessoCoordenada(proxima);
+                viasVeiculo.put(hashVeiculo, viaNova);
+            }
+        }
+        else {
+            if (!isViaSaida) {
+                Via novaVia = viasVeiculo.get(hashVeiculo);
+                proxima = movimentoVeiculo.getNext(veiculo.getCoordenada(), novaVia);
+
+                veiculo.setVia(novaVia);
+                veiculo.getCoordenada().setLiberada(true);
+                veiculo.setCoordenada(proxima);
+
+                viasVeiculo.remove(hashVeiculo);
             }
             else {
                 veiculo.setEmMovimento(false);
             }
         }
-        else if (coordenada.isLiberada()) {
-            setCoordenadaVeiculo(coordenada, veiculo);
-        }
     }
 
     /**
-     * Atualiza a via do veículo
-     * @param veiculo
-     * @param movimentoVeiculo
-     */
-    protected abstract void setViaVeiculo(Veiculo veiculo, ModelMovimentoVeiculo movimentoVeiculo);
-
-    /**
-     * Atualiza a coordenada do veículo
+     * Adquire o acesso exclusivo da coordenada
      * @param coordenada
-     * @param veiculo
      */
-    protected abstract void setCoordenadaVeiculo(Coordenada coordenada, Veiculo veiculo);
+    protected abstract void getAcessoCoordenada(Coordenada coordenada);
+
 }
