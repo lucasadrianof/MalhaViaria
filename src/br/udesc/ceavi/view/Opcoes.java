@@ -27,7 +27,7 @@ public class Opcoes extends JPanel{
     private final TipoEstrategiaExclusividade[] opcoesEstrategia = {TipoEstrategiaExclusividade.SEMAFORO, 
                                                                     TipoEstrategiaExclusividade.MONITOR};
     
-    private final String[] opcoesMapa = {"1","2","3","4"};
+    private final String[] opcoesMapa = {"1","2","3","4","5","6"};
     private Tela tela;
 
     public JTextField getCampoQtdeVeiculos() {
