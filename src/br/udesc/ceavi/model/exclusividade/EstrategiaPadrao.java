@@ -24,8 +24,11 @@ abstract public class EstrategiaPadrao implements EstrategiaExclusividade {
         this.malhaViaria = malhaViaria;
     }
 
-    @Override
-    public void movimentaVeiculo(Veiculo veiculo) {
+    /**
+     * Adquire o acesso exclusivo da coordenada para o veículo
+     * @param veiculo
+     */
+    protected void getAcessoCoordenada(Veiculo veiculo) {
         Via via = veiculo.getVia();
         ModelMovimentoVeiculo movimentoVeiculo = new ModelMovimentoVeiculo(veiculo, malhaViaria);
         Coordenada proxima = movimentoVeiculo.getNext(veiculo.getCoordenada(), via);
@@ -33,21 +36,32 @@ abstract public class EstrategiaPadrao implements EstrategiaExclusividade {
         String hashVeiculo = Integer.toHexString(veiculo.hashCode());
 
         if (proxima != null) {
-            boolean proximoIsUltimo = proxima.equals(via.getPontoFinal());
+            if (proxima.isLiberada()) {
+                boolean proximoIsUltimo = proxima.equals(via.getPontoFinal());
 
-            getAcessoCoordenada(proxima);
-            veiculo.getCoordenada().setLiberada(true);
-            veiculo.setCoordenada(proxima);
+                Coordenada anterior = veiculo.getCoordenada();
+                anterior.setLiberada(true);
 
-            if (proximoIsUltimo && !isViaSaida) {
-                List<Via> vias   = movimentoVeiculo.getProximasVias();
-                Random random    = new Random();
-                int proximaVia   = random.nextInt(vias.size());
-                Via viaNova      = vias.get(proximaVia);
-                proxima = movimentoVeiculo.getNext(proxima, viaNova);
+                proxima.setLiberada(false);
+                veiculo.setCoordenada(proxima);
 
-                getAcessoCoordenada(proxima);
-                viasVeiculo.put(hashVeiculo, viaNova);
+                if (proximoIsUltimo && !isViaSaida) {
+                    List<Via> vias   = movimentoVeiculo.getProximasVias();
+                    Random random    = new Random();
+                    int proximaVia   = random.nextInt(vias.size());
+                    Via viaNova      = vias.get(proximaVia);
+                    Coordenada proximaOutra = movimentoVeiculo.getNext(proxima, viaNova);
+
+                    if (proximaOutra.isLiberada()) {
+                        proximaOutra.setLiberada(false);
+                        viasVeiculo.put(hashVeiculo, viaNova);
+                    }
+                    else {
+                        anterior.setLiberada(false);
+                        proxima.setLiberada(true);
+                        veiculo.setCoordenada(anterior);
+                    }
+                }
             }
         }
         else {
@@ -66,11 +80,4 @@ abstract public class EstrategiaPadrao implements EstrategiaExclusividade {
             }
         }
     }
-
-    /**
-     * Adquire o acesso exclusivo da coordenada
-     * @param coordenada
-     */
-    protected abstract void getAcessoCoordenada(Coordenada coordenada);
-
 }

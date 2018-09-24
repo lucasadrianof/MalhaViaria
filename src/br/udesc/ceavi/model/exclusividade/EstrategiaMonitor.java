@@ -1,6 +1,7 @@
 package br.udesc.ceavi.model.exclusividade;
 
 import br.udesc.ceavi.model.entity.Coordenada;
+import br.udesc.ceavi.model.entity.Veiculo;
 
 /**
  * Estratégia para adquirir "lock" utilizando Monitores
@@ -9,9 +10,7 @@ import br.udesc.ceavi.model.entity.Coordenada;
 public class EstrategiaMonitor extends EstrategiaPadrao {
 
     @Override
-    protected synchronized void getAcessoCoordenada(Coordenada coordenada) {
-        if (coordenada.isLiberada()) {
-            coordenada.setLiberada(false);
-        }
+    public synchronized void movimentaVeiculo(Veiculo veiculo) {
+        getAcessoCoordenada(veiculo);
     }
 }

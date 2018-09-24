@@ -13,16 +13,11 @@ public class EstrategiaSemaforo extends EstrategiaPadrao {
     private Semaphore semaphore = new Semaphore(1);
 
     @Override
-    protected void getAcessoCoordenada(Coordenada coordenada) {
+    public void movimentaVeiculo(Veiculo veiculo) {
         try {
             semaphore.acquire();
-
-            if (!coordenada.isLiberada()) {
-                coordenada.setLiberada(false);
-            }
-
+            getAcessoCoordenada(veiculo);
             semaphore.release();
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

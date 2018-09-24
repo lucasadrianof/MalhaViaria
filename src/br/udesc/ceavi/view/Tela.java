@@ -164,6 +164,8 @@ public class Tela extends JPanel implements ObservadorTela {
     
     @Override
     public synchronized void movimentaCarro(Veiculo veiculo) {
+        System.out.println("---------");
+        carros.forEach((veiculo1) -> System.out.println(veiculo1.toString()));
         repaint();
     }
 
