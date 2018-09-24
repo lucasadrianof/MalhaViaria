@@ -36,14 +36,9 @@ public class Tela extends JPanel implements ObservadorTela {
     
     private Opcoes opcoes;
 
-    public Tela(Opcoes opcoes) {
+    public Tela() {
         controllerMalhaViaria = new ControllerMalhaViaria();
         controllerMalhaViaria.adicionaObservador(this);
-        try {
-            controllerMalhaViaria.iniciaMalhaViaria();
-        } catch (IOException ex) {
-            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     public void iniciaMalhaViaria(){
@@ -52,7 +47,7 @@ public class Tela extends JPanel implements ObservadorTela {
         TipoEstrategiaExclusividade estrategia = (TipoEstrategiaExclusividade)opcoes.getCampoEstrategia().getSelectedItem();
         
         try {
-            controllerMalhaViaria.iniciaMalhaViaria();
+            controllerMalhaViaria.iniciaMalhaViaria(qtde, mapa, estrategia);
         } catch (IOException ex) {
             Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,11 +56,15 @@ public class Tela extends JPanel implements ObservadorTela {
     @Override
     public synchronized void paintComponent(Graphics a) {
         super.paintComponent(a);
-        g = (Graphics2D) a.create();
+        
+        if (malhaViaria != null) {
+            g = (Graphics2D) a.create();
 
-        desenhaVia();
-        desenhaMalhaViaria();
-        desenhaCarros();
+            desenhaVia();
+            desenhaMalhaViaria();
+            desenhaCarros();
+        }
+        
     }
     
     private static BufferedImage resize(BufferedImage img, int height, int width) {
@@ -157,5 +156,15 @@ public class Tela extends JPanel implements ObservadorTela {
     @Override
     public void movimentaCarro(Veiculo veiculo) {
         repaint();
+    }
+
+    @Override
+    public void removeCarro(Veiculo veiculo) {
+        carros.remove(veiculo);
+        repaint();
+    }
+
+    public void setViewOpcoes(Opcoes opcoes) {
+        this.opcoes = opcoes;
     }
 }

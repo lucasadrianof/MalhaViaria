@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * Controller de Importação da Malha Viária
@@ -19,9 +18,9 @@ public class ControllerImportacaoMalha {
             
     private final String caminho = System.getProperty("user.dir") + "/";
     
-    public void iniciaImportacao() throws IOException {
+    public void iniciaImportacao(int mapa) throws IOException {
         
-        String arquivo = caminho+"malhas/malha-exemplo-"+getCodigoArquivo()+".txt";
+        String arquivo = caminho+"malhas/malha-exemplo-"+mapa+".txt";
         
         int iCont = 0;
         
@@ -76,15 +75,6 @@ public class ControllerImportacaoMalha {
         Via via = new Via(pontoInicial, pontoFinal);
 
         malhaViaria.adicionaVia(via);
-    }
-
-    private int getCodigoArquivo(){
-        Random r = new Random();
-        int pos = 0;
-        while(pos == 0){
-            pos = r.nextInt(5);
-        }
-        return 1;
     }
     
     public MalhaViaria getMalhaViaria(){

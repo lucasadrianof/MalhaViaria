@@ -23,8 +23,14 @@ public class Principal {
             frame.setSize(1000,700);
             
             Opcoes opcoes = new Opcoes();
+            
+            Tela tela = new Tela();
+            
+            tela.setViewOpcoes(opcoes);
+            opcoes.setViewTela(tela);
+            
             frame.add(opcoes, BorderLayout.SOUTH);
-            frame.add(new Tela(opcoes));
+            frame.add(tela);
         });
     }
 }
