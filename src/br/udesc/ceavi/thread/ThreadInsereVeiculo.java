@@ -19,7 +19,7 @@ public class ThreadInsereVeiculo extends Thread {
 
     private MalhaViaria malhaViaria;
     private EstrategiaExclusividade exclusividade;
-    private List<ObservadoInsercaoVeiculo> observadoresInsercaoVeiculos = new ArrayList<>();
+    private List<ObservadorInsercaoVeiculo> observadoresInsercaoVeiculos = new ArrayList<>();
     private int qtdeVeiculos;
     private TipoEstrategiaExclusividade estrategia;
 
@@ -39,8 +39,8 @@ public class ThreadInsereVeiculo extends Thread {
         this.estrategia = estrategia;
     }
 
-    public void addObservador(ObservadoInsercaoVeiculo observadoInsercaoVeiculo) {
-        observadoresInsercaoVeiculos.add(observadoInsercaoVeiculo);
+    public void addObservador(ObservadorInsercaoVeiculo observadorInsercaoVeiculo) {
+        observadoresInsercaoVeiculos.add(observadorInsercaoVeiculo);
     }
 
     @Override

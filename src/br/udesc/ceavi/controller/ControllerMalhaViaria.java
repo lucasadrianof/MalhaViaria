@@ -2,7 +2,7 @@ package br.udesc.ceavi.controller;
 
 import br.udesc.ceavi.model.entity.Coordenada;
 import br.udesc.ceavi.model.entity.Observador.ObservadorMovimentoVeiculo;
-import br.udesc.ceavi.thread.ObservadoInsercaoVeiculo;
+import br.udesc.ceavi.thread.ObservadorInsercaoVeiculo;
 import br.udesc.ceavi.view.ObservadorTela;
 import br.udesc.ceavi.model.entity.MalhaViaria;
 import br.udesc.ceavi.model.entity.Veiculo;
@@ -17,7 +17,7 @@ import java.util.List;
  * Controller da Manutenção da Tela de Malha Viária
  * @author lucas.adriano
  */
-public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, ObservadoInsercaoVeiculo, ObservadorMovimentoVeiculo {
+public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, ObservadorInsercaoVeiculo, ObservadorMovimentoVeiculo {
 
     private MalhaViaria malhaViaria;
     

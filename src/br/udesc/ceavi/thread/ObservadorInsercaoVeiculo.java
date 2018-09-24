@@ -6,7 +6,7 @@ import br.udesc.ceavi.model.entity.Veiculo;
  * Observador de inserção de veículos
  * @author lucas.adriano
  */
-public interface ObservadoInsercaoVeiculo {
+public interface ObservadorInsercaoVeiculo {
 
     /**
      * Indica que o veículo foi inserido na malha
