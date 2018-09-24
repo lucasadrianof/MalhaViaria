@@ -1,10 +1,11 @@
 package br.udesc.ceavi.view;
 
 import br.udesc.ceavi.controller.ControllerMalhaViaria;
-import br.udesc.ceavi.model.entity.Coordenada;
+import br.udesc.ceavi.model.entity.DirecaoVia;
 import br.udesc.ceavi.model.entity.MalhaViaria;
 import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
+import br.udesc.ceavi.model.exclusividade.TipoEstrategiaExclusividade;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -32,15 +33,27 @@ public class Tela extends JPanel implements ObservadorTela {
     private List<Via> vias = new ArrayList<>();
     private List<Veiculo> carros = Collections.synchronizedList(new ArrayList<>());
     private final String caminho =  System.getProperty("user.dir") + "/";
+    
+    private Opcoes opcoes;
 
-    public Tela() {
+    public Tela(Opcoes opcoes) {
+        controllerMalhaViaria = new ControllerMalhaViaria();
+        controllerMalhaViaria.adicionaObservador(this);
         try {
-            controllerMalhaViaria = new ControllerMalhaViaria();
-            controllerMalhaViaria.adicionaObservador(this);
             controllerMalhaViaria.iniciaMalhaViaria();
-
+        } catch (IOException ex) {
+            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IOException ex) {
+    }
+    
+    public void iniciaMalhaViaria(){
+        int qtde = Integer.parseInt(opcoes.getCampoQtdeVeiculos().getText());
+        int mapa = Integer.parseInt(opcoes.getCampoMapa().getSelectedItem().toString());
+        TipoEstrategiaExclusividade estrategia = (TipoEstrategiaExclusividade)opcoes.getCampoEstrategia().getSelectedItem();
+        
+        try {
+            controllerMalhaViaria.iniciaMalhaViaria();
+        } catch (IOException ex) {
             Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -67,11 +80,26 @@ public class Tela extends JPanel implements ObservadorTela {
     private BufferedImage getCarro(Veiculo veiculo) {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File(caminho + "malhas/car_left.png"));
+            image = ImageIO.read(new File(caminho + "malhas/"+getImagemCarro(veiculo)));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return resize(image, 30, 30);
+    }
+    
+    private String getImagemCarro(Veiculo veiculo){
+        DirecaoVia direcao = veiculo.getVia().getDirecao();
+        
+        if (direcao == DirecaoVia.CIMA_BAIXO) {
+            return "car_down.png";
+        }
+        if (direcao == DirecaoVia.BAIXO_CIMA) {
+            return "car_up.png";
+        }
+        if (direcao == DirecaoVia.ESQUERDA_DIREITA) {
+            return "car_left.png";
+        }
+        return "car_rigth.png";
     }
     
     @Override
