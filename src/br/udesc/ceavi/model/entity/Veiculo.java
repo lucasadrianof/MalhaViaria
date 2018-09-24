@@ -20,6 +20,7 @@ public class Veiculo implements Runnable {
 
     public Veiculo(Via via, EstrategiaExclusividade estrategia) {
         this.setVia(via);
+        this.setCoordenada(via.getPontoInicial());
         this.estrategia = estrategia;
     }
 
@@ -32,12 +33,7 @@ public class Veiculo implements Runnable {
     }
 
     public void setVia(Via via) {
-        if (this.via != null) {
-            this.via.removeVeiculo(this);
-        }
         this.via = via;
-        this.via.adicionaVeiculo(this);
-        this.setCoordenada(via.getPontoInicial());
     }
 
     public Coordenada getCoordenada() {

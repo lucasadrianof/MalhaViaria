@@ -1,23 +1,26 @@
 package br.udesc.ceavi.model.exclusividade;
 
-import br.udesc.ceavi.model.entity.MalhaViaria;
+import br.udesc.ceavi.model.bo.ModelMovimentoVeiculo;
+import br.udesc.ceavi.model.entity.Coordenada;
 import br.udesc.ceavi.model.entity.Veiculo;
+
+import java.util.concurrent.Semaphore;
 
 /**
  * Estratégia para adquirir "lock" utilizando Semáforos
  * @author lucas.adriano
  */
-public class EstrategiaSemaforo implements EstrategiaExclusividade {
+public class EstrategiaSemaforo extends EstrategiaPadrao {
 
-    private MalhaViaria malhaViaria;
+    private Semaphore semaphore = new Semaphore(1);
 
     @Override
-    public void setMalhaViaria(MalhaViaria malhaViaria) {
-        this.malhaViaria = malhaViaria;
+    protected void setViaVeiculo(Veiculo veiculo, ModelMovimentoVeiculo movimentoVeiculo) {
+
     }
 
     @Override
-    public void movimentaVeiculo(Veiculo veiculo) {
+    protected void setCoordenadaVeiculo(Coordenada coordenada, Veiculo veiculo) {
 
     }
 }

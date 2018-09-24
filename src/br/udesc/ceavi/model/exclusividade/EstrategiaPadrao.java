@@ -12,7 +12,7 @@ import br.udesc.ceavi.model.entity.Via;
  */
 abstract public class EstrategiaPadrao implements EstrategiaExclusividade {
 
-    private MalhaViaria malhaViaria;
+    protected MalhaViaria malhaViaria;
 
     @Override
     public void setMalhaViaria(MalhaViaria malhaViaria) {

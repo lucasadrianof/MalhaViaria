@@ -40,15 +40,11 @@ public class Coordenada {
         this.veiculo = veiculo;
     }
 
-    /**
-     * Indica se a coordenada atual está liberada, ou seja, se não possui nenhum veículo
-     * @return
-     */
+
     public boolean isLiberada() {
         return veiculo == null;
     }
 
-    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

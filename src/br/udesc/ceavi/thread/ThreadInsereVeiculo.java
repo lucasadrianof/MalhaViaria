@@ -1,6 +1,7 @@
 package br.udesc.ceavi.thread;
 
 import br.udesc.ceavi.model.entity.MalhaViaria;
+import br.udesc.ceavi.model.entity.Observador.ObservadorMovimentoVeiculo;
 import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
 import br.udesc.ceavi.model.exclusividade.EstrategiaExclusividade;
@@ -18,6 +19,7 @@ public class ThreadInsereVeiculo extends Thread {
 
     private MalhaViaria malhaViaria;
     private EstrategiaExclusividade exclusividade;
+    private List<ObservadoInsercaoVeiculo> observadoresInsercaoVeiculos = new ArrayList<>();
 
     public void setMalhaViaria(MalhaViaria malhaViaria) {
         this.malhaViaria = malhaViaria;
@@ -27,9 +29,13 @@ public class ThreadInsereVeiculo extends Thread {
         this.exclusividade = exclusividade;
     }
 
+    public void addObservador(ObservadoInsercaoVeiculo observadoInsercaoVeiculo) {
+        observadoresInsercaoVeiculos.add(observadoInsercaoVeiculo);
+    }
+
     @Override
     public void run() {
-        int quantidade = 15;
+        int quantidade = 3;
         List<Thread> threads = new ArrayList<>();
 
         while (threads.size() < quantidade) {
@@ -43,15 +49,19 @@ public class ThreadInsereVeiculo extends Thread {
                 Random r  = new Random();
                 int index = r.nextInt(vias.length);
 
-                Veiculo veiculo  = new Veiculo(vias[index], estrategia);
-                Thread thVeiculo = new Thread(veiculo);
-                thVeiculo.start();
+                if (vias[index].getPontoInicial().isLiberada()) {
+                    Veiculo veiculo  = new Veiculo(vias[index], estrategia);
+                    observadoresInsercaoVeiculos.forEach((observador) -> observador.veiculoJnserido(veiculo));
 
-                threads.add(thVeiculo);
+                    Thread thVeiculo = new Thread(veiculo);
+                    thVeiculo.start();
+
+                    threads.add(thVeiculo);
+                }
             }
 
             try {
-                sleep(3000);
+                sleep(1000);
             }
             catch (InterruptedException e) {
                 e.printStackTrace();

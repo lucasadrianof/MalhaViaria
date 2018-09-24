@@ -2,9 +2,9 @@ package br.udesc.ceavi.controller;
 
 import br.udesc.ceavi.model.entity.Coordenada;
 import br.udesc.ceavi.model.entity.Observador.ObservadorMovimentoVeiculo;
+import br.udesc.ceavi.thread.ObservadoInsercaoVeiculo;
 import br.udesc.ceavi.view.ObservadorTela;
 import br.udesc.ceavi.model.entity.MalhaViaria;
-import br.udesc.ceavi.model.entity.Observador.ObservadorVia;
 import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
 import br.udesc.ceavi.thread.ThreadInsereVeiculo;
@@ -17,7 +17,7 @@ import java.util.List;
  * Controller da Manutenção da Tela de Malha Viária
  * @author lucas.adriano
  */
-public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, ObservadorVia, ObservadorMovimentoVeiculo {
+public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, ObservadoInsercaoVeiculo, ObservadorMovimentoVeiculo {
 
     private MalhaViaria malhaViaria;
     
@@ -38,6 +38,7 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
 
         ThreadInsereVeiculo threadInsereVeiculo = new ThreadInsereVeiculo();
         threadInsereVeiculo.setMalhaViaria(this.malhaViaria);
+        threadInsereVeiculo.addObservador(this);
         threadInsereVeiculo.start();
     }
 
@@ -54,7 +55,6 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
     @Override
     public void notificaObservadoresMontarVias(){
         malhaViaria.getVias().forEach((via) -> {
-            via.adicionaObservador(this);
             observadores.forEach((observador) -> {
                 observador.criaVia(via);
             });
@@ -67,11 +67,9 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
     }
 
     @Override
-    public void veiculoAdicionado(Via via, Veiculo veiculo) {
-        observadores.forEach((observador) -> {
-            veiculo.adicionaObservador(this);
-            observador.adicionaCarroMalha(veiculo);
-        });
+    public void veiculoJnserido(Veiculo veiculo) {
+        veiculo.adicionaObservador(this);
+        observadores.forEach((observador) -> observador.adicionaCarroMalha(veiculo));
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.Random;
 public class EstrategiaMonitor extends EstrategiaPadrao {
 
     @Override
-    protected synchronized void setViaVeiculo(@NotNull Veiculo veiculo, @NotNull ModelMovimentoVeiculo movimentoVeiculo) {
+    protected void setViaVeiculo(@NotNull Veiculo veiculo, @NotNull ModelMovimentoVeiculo movimentoVeiculo) {
         List<Via> vias   = movimentoVeiculo.getProximasVias();
         Random random    = new Random();
         int proximaVia   = random.nextInt(vias.size());
@@ -26,6 +26,7 @@ public class EstrategiaMonitor extends EstrategiaPadrao {
 
         //Tenta adquirir o lock do cruzamento somente se o cruzamento e a próxima via está liberada
         if (cruzamento.isLiberada() && proximaCruz.isLiberada()) {
+            setCoordenadaVeiculo(viaNova.getPontoInicial(), veiculo);
             veiculo.setVia(viaNova);
         }
     }

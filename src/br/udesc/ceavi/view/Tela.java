@@ -113,14 +113,14 @@ public class Tela extends JPanel implements ObservadorTela {
 
     }
 
-    private synchronized void desenhaCarros() {
+    private void desenhaCarros() {
         synchronized (this.carros) {
             carros.forEach((veiculo) -> {
                 g.drawImage(
-                    getCarro(veiculo),
-                    veiculo.getCoordenada().getPosicaoX() * 25, 
-                    veiculo.getCoordenada().getPosicaoY() * 23, 
-                    null
+                        getCarro(veiculo),
+                        veiculo.getCoordenada().getPosicaoX() * 25,
+                        veiculo.getCoordenada().getPosicaoY() * 23,
+                        null
                 );
             });
         }
@@ -128,8 +128,6 @@ public class Tela extends JPanel implements ObservadorTela {
     
     @Override
     public void movimentaCarro(Veiculo veiculo) {
-        carros.remove(veiculo);
-        carros.add(veiculo);
         repaint();
     }
 }

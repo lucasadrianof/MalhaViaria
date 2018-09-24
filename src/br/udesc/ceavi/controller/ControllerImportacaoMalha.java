@@ -84,7 +84,7 @@ public class ControllerImportacaoMalha {
         while(pos == 0){
             pos = r.nextInt(5);
         }
-        return pos;
+        return 1;
     }
     
     public MalhaViaria getMalhaViaria(){
