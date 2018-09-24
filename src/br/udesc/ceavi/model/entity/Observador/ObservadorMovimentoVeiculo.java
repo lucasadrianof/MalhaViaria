@@ -16,4 +16,9 @@ public interface ObservadorMovimentoVeiculo {
      */
     public void veiculoMovimentado(Veiculo veiculo, Coordenada coordenadaAnterior);
 
+    /**
+     * Indica que o veículo chegou ao destino
+     */
+    public void veiculoFinalizado(Veiculo veiculo);
+
 }

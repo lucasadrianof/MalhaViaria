@@ -80,5 +80,6 @@ public class Veiculo implements Runnable {
                 observadorMovimento.veiculoMovimentado(this, coordenadaAnterior);
             });
         }
+        observadores.forEach((observador) -> observador.veiculoFinalizado(this));
     }
 }

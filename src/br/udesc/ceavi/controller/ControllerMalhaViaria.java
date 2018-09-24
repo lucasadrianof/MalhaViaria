@@ -78,4 +78,9 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
             observador.movimentaCarro(veiculo);
         });
     }
+
+    @Override
+    public void veiculoFinalizado(Veiculo veiculo) {
+
+    }
 }
