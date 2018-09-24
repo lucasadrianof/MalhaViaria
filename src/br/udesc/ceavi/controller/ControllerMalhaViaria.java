@@ -87,4 +87,18 @@ public class ControllerMalhaViaria implements ObservadoControllerMalhaViaria, Ob
             observador.removeCarro(veiculo);
         });
     }
+
+    public void encerraBruscamente() {
+        //parar execucao
+        malhaEncerradaBruscamente();
+        
+    }
+    
+    @Override
+    public void malhaEncerradaBruscamente() {
+        observadores.forEach((observador) -> {
+            //observador.limpaMapa();
+        });
+    }
+
 }

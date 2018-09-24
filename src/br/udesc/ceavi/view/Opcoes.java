@@ -68,6 +68,10 @@ public class Opcoes extends JPanel{
             tela.iniciaMalhaViaria();
         });
         
+        botaoEncerrar.addActionListener((ActionEvent e) -> {
+            tela.encerraBruscamente();
+        });
+        
         add(txtQtdeVeiculos);
         add(campoQtdeVeiculos);
         add(txtEstrategia);

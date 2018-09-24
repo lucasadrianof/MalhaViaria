@@ -20,5 +20,10 @@ public interface ObservadorMovimentoVeiculo {
      * Indica que o veículo chegou ao destino
      */
     public void veiculoFinalizado(Veiculo veiculo);
+    
+    /**
+     * Indica que a malha foi encerrada
+     */
+    public void malhaEncerradaBruscamente();
 
 }

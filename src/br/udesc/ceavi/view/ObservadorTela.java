@@ -19,4 +19,6 @@ public interface ObservadorTela {
     public void movimentaCarro(Veiculo veiculo);
 
     public void removeCarro(Veiculo veiculo);
+    
+    public void limpaMapa();
 }

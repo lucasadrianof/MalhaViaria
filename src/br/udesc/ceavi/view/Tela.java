@@ -42,6 +42,7 @@ public class Tela extends JPanel implements ObservadorTela {
     }
     
     public void iniciaMalhaViaria(){
+        repaint();
         int qtde = Integer.parseInt(opcoes.getCampoQtdeVeiculos().getText());
         int mapa = Integer.parseInt(opcoes.getCampoMapa().getSelectedItem().toString());
         TipoEstrategiaExclusividade estrategia = (TipoEstrategiaExclusividade)opcoes.getCampoEstrategia().getSelectedItem();
@@ -52,19 +53,19 @@ public class Tela extends JPanel implements ObservadorTela {
             Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Override
     public synchronized void paintComponent(Graphics a) {
+        
         super.paintComponent(a);
         
+        g = (Graphics2D) a.create();
+        
         if (malhaViaria != null) {
-            g = (Graphics2D) a.create();
-
             desenhaVia();
             desenhaMalhaViaria();
             desenhaCarros();
         }
-        
     }
     
     private static BufferedImage resize(BufferedImage img, int height, int width) {
@@ -83,7 +84,8 @@ public class Tela extends JPanel implements ObservadorTela {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return resize(image, 30, 30);
+        
+        return resize(image, 25, 25);
     }
     
     private String getImagemCarro(Veiculo veiculo){
@@ -119,6 +121,7 @@ public class Tela extends JPanel implements ObservadorTela {
                        via.getPontoFinal().getPosicaoX() * 25,
                        via.getPontoFinal().getPosicaoY() * 25
             );
+            
         });
     }
 
@@ -143,10 +146,16 @@ public class Tela extends JPanel implements ObservadorTela {
     private void desenhaCarros() {
         synchronized (this.carros) {
             carros.forEach((veiculo) -> {
+                
+                DirecaoVia direcao = veiculo.getVia().getDirecao();
+        
+                int base1 = direcao == DirecaoVia.CIMA_BAIXO ? 24 : 24;
+                int base2 = direcao == DirecaoVia.CIMA_BAIXO ? 24 : 24;
+                
                 g.drawImage(
                         getCarro(veiculo),
-                        veiculo.getCoordenada().getPosicaoX() * 25,
-                        veiculo.getCoordenada().getPosicaoY() * 23,
+                        veiculo.getCoordenada().getPosicaoX() * base1,
+                        veiculo.getCoordenada().getPosicaoY() * base2,
                         null
                 );
             });
@@ -166,5 +175,18 @@ public class Tela extends JPanel implements ObservadorTela {
 
     public void setViewOpcoes(Opcoes opcoes) {
         this.opcoes = opcoes;
+    }
+
+    public void encerraBruscamente() {
+        controllerMalhaViaria.encerraBruscamente();
+    }
+    
+    @Override
+    public void limpaMapa(){
+        g.clearRect(0, 0, 1000, 700);
+        this.malhaViaria = null;
+        this.vias = new ArrayList<>();
+        this.carros = Collections.synchronizedList(new ArrayList<>());
+        repaint();
     }
 }
