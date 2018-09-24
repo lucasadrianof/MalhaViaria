@@ -70,7 +70,7 @@ public class ThreadInsereVeiculo extends Thread {
             }
 
             try {
-                sleep(100);
+                sleep(1000);
             }
             catch (InterruptedException e) {
                 e.printStackTrace();
