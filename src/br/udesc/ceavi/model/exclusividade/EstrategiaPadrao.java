@@ -6,6 +6,8 @@ import br.udesc.ceavi.model.entity.MalhaViaria;
 import br.udesc.ceavi.model.entity.Veiculo;
 import br.udesc.ceavi.model.entity.Via;
 
+import java.util.HashMap;
+
 /**
  * Classe padrão de estratégias de exclusividade
  * @author lucas.adriano

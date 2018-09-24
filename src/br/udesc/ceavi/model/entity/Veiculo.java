@@ -21,6 +21,7 @@ public class Veiculo implements Runnable {
     public Veiculo(Via via, EstrategiaExclusividade estrategia) {
         this.setVia(via);
         this.setCoordenada(via.getPontoInicial());
+        this.getCoordenada().setLiberada(false);
         this.estrategia = estrategia;
     }
 
@@ -49,11 +50,7 @@ public class Veiculo implements Runnable {
     }
 
     public void setCoordenada(Coordenada coordenada) {
-        if (this.coordenada != null) {
-            this.coordenada.setVeiculo(null);
-        }
         this.coordenada = coordenada;
-        this.coordenada.setVeiculo(this);
     }
 
     /**
@@ -81,5 +78,11 @@ public class Veiculo implements Runnable {
             });
         }
         observadores.forEach((observador) -> observador.veiculoFinalizado(this));
+    }
+
+    @Override
+    public String toString() {
+        String format = "Veículo: %s %s %s";
+        return String.format(format, Integer.toHexString(hashCode()), this.getVia(), this.getCoordenada());
     }
 }

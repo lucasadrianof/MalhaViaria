@@ -16,7 +16,7 @@ import java.util.Random;
 public class EstrategiaMonitor extends EstrategiaPadrao {
 
     @Override
-    protected void setViaVeiculo(@NotNull Veiculo veiculo, @NotNull ModelMovimentoVeiculo movimentoVeiculo) {
+    protected synchronized void setViaVeiculo(@NotNull Veiculo veiculo, @NotNull ModelMovimentoVeiculo movimentoVeiculo) {
         List<Via> vias   = movimentoVeiculo.getProximasVias();
         Random random    = new Random();
         int proximaVia   = random.nextInt(vias.size());
@@ -33,6 +33,11 @@ public class EstrategiaMonitor extends EstrategiaPadrao {
 
     @Override
     protected synchronized void setCoordenadaVeiculo(Coordenada coordenada, @NotNull Veiculo veiculo) {
+        if (!coordenada.isLiberada()) {
+            System.out.println("********* fudeuuuu **********");
+        }
+        veiculo.getCoordenada().setLiberada(true);
         veiculo.setCoordenada(coordenada);
+        veiculo.getCoordenada().setLiberada(false);
     }
 }

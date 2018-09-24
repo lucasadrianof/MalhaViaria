@@ -71,4 +71,13 @@ public class Via {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        String format = "Via: %s Posição Inicial: %s Posiçao Final: %s Direção: %s";
+        return String.format(format, Integer.toHexString(hashCode()),
+                                     this.getPontoInicial().toString(),
+                                     this.getPontoFinal().toString(),
+                                     this.getDirecao());
+    }
 }

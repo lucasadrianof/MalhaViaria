@@ -8,8 +8,7 @@ public class Coordenada {
 
     private int posicaoX;
     private int posicaoY;
-
-    private Veiculo veiculo;
+    private boolean liberada = true;
 
     public Coordenada(int posicaoX, int posicaoY) {
         this.posicaoX = posicaoX;
@@ -32,17 +31,12 @@ public class Coordenada {
         this.posicaoY = posicaoY;
     }
 
-    public Veiculo getVeiculo() {
-        return veiculo;
-    }
-
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
-    }
-
-
     public boolean isLiberada() {
-        return veiculo == null;
+        return liberada;
+    }
+
+    public void setLiberada(boolean liberada) {
+        this.liberada = liberada;
     }
 
     public boolean equals(Object obj) {
@@ -54,5 +48,10 @@ public class Coordenada {
                     ((Coordenada) obj).getPosicaoY() == this.getPosicaoY();
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Coordenada: X-Y: %s-%s", this.getPosicaoX(), this.getPosicaoY());
     }
 }
