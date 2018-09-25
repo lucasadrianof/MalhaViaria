@@ -85,16 +85,16 @@ public class Tela extends JPanel implements ObservadorTela {
             e.printStackTrace();
         }
         
-        return resize(image, 25, 25);
+        return resize(image, 20, 20);
     }
     
     private String getImagemCarro(Veiculo veiculo){
         DirecaoVia direcao = veiculo.getVia().getDirecao();
         
-        if (direcao == DirecaoVia.CIMA_BAIXO) {
+        if (direcao == DirecaoVia.BAIXO_CIMA) {
             return "car_down.png";
         }
-        if (direcao == DirecaoVia.BAIXO_CIMA) {
+        if (direcao == DirecaoVia.CIMA_BAIXO) {
             return "car_up.png";
         }
         if (direcao == DirecaoVia.ESQUERDA_DIREITA) {
