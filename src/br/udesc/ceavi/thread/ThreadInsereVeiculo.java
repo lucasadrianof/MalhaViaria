@@ -80,7 +80,7 @@ public class ThreadInsereVeiculo extends Thread {
     /**
      * Finaliza a execução de todas as threads de veículos
      */
-    public void finalizaExecucaoVeiculos() {
+    public  synchronized void finalizaExecucaoVeiculos() {
         for (Thread thread : threads) {
             if (!thread.isInterrupted()) {
                 thread.interrupt();

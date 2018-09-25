@@ -63,7 +63,6 @@ public class Tela extends JPanel implements ObservadorTela {
         
         if (malhaViaria != null) {
             desenhaVia();
-            desenhaMalhaViaria();
             desenhaCarros();
         }
     }
