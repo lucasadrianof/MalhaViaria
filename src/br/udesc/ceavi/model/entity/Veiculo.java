@@ -5,6 +5,7 @@ import br.udesc.ceavi.model.entity.Observador.ObservadorMovimentoVeiculo;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Entidade do Veículo
@@ -63,9 +64,11 @@ public class Veiculo implements Runnable {
 
     @Override
     public void run() {
+        Random random = new Random();
+
         while (isEmMovimento()) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(random.nextInt(200));
             }
             catch (InterruptedException e) {
                 observadores.forEach((observador) -> observador.veiculoFinalizadoBruscamente(this));
