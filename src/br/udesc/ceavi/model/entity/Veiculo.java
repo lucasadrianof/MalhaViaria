@@ -68,7 +68,9 @@ public class Veiculo implements Runnable {
 
         while (isEmMovimento()) {
             try {
-                Thread.sleep(random.nextInt(200));
+                int minimo = 300;
+                int maximo = 500;
+                Thread.sleep(random.nextInt(maximo - minimo) + minimo);
             }
             catch (InterruptedException e) {
                 observadores.forEach((observador) -> observador.veiculoFinalizadoBruscamente(this));
