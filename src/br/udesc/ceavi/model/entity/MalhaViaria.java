@@ -78,6 +78,9 @@ public class MalhaViaria {
      * @param via
      */
     private void verificaViaSaida(Via via) {
+        if (via.getPontoFinal().getPosicaoX() == 24 && via.getPontoFinal().getPosicaoY() == 2) {
+            int x = 1;
+        }
         if (isCoordenadaEntradaSaida(via.getPontoFinal())) {
             viasSaida.add(via);
         }

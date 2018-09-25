@@ -65,7 +65,7 @@ public class Veiculo implements Runnable {
     public void run() {
         while (isEmMovimento()) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             }
             catch (InterruptedException e) {
                 observadores.forEach((observador) -> observador.veiculoFinalizadoBruscamente(this));

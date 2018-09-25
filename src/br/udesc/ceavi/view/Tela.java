@@ -133,7 +133,7 @@ public class Tela extends JPanel implements ObservadorTela {
     private void desenhaMalhaViaria() {
         g.setColor(Color.BLACK);
         g.setStroke(new BasicStroke(2));
-        g.drawRect(0, 0, malhaViaria.getColunas() * 25, malhaViaria.getLinhas() * 25);
+        g.drawRect(0, 0, malhaViaria.getLinhas() * 25, malhaViaria.getColunas() * 25);
     }
 
     @Override
